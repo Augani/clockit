@@ -1,55 +1,55 @@
-'use client';
+"use client";
 
-import Logo from '@/app/Logo';
-import Button from '@/components/ Button';
-import Card from '@/components/Card';
-import Sample from '@/components/Sample';
-import Sample1 from '@/components/Sample1';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import BuildIcon from '@mui/icons-material/Build';
-import SecurityIcon from '@mui/icons-material/Security';
-import SpeedIcon from '@mui/icons-material/Speed';
-import StopCircleIcon from '@mui/icons-material/StopCircle';
-import SupportIcon from '@mui/icons-material/Support';
-import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import Link from 'next/link';
+import Logo from "@/app/Logo";
+import Button from "@/components/ Button";
+import Card from "@/components/Card";
+import Sample from "@/components/Sample";
+import Sample1 from "@/components/Sample1";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import BuildIcon from "@mui/icons-material/Build";
+import SecurityIcon from "@mui/icons-material/Security";
+import SpeedIcon from "@mui/icons-material/Speed";
+import StopCircleIcon from "@mui/icons-material/StopCircle";
+import SupportIcon from "@mui/icons-material/Support";
+import clsx from "clsx";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
 export default function HomePage() {
-  const NavTranslations = useTranslations('nav');
-  const LandingTranslations = useTranslations('landing');
-  const FeaturesTranslations = useTranslations('features');
-  const PricingTranslations = useTranslations('pricing');
-  const AboutTranslations = useTranslations('about');
+  const NavTranslations = useTranslations("nav");
+  const LandingTranslations = useTranslations("landing");
+  const FeaturesTranslations = useTranslations("features");
+  const PricingTranslations = useTranslations("pricing");
+  const AboutTranslations = useTranslations("about");
   const Features = [
     {
-      title: FeaturesTranslations('1.title'),
-      description: FeaturesTranslations('1.description'),
+      title: FeaturesTranslations("1.title"),
+      description: FeaturesTranslations("1.description"),
       icon: AutoAwesomeIcon,
     },
     {
-      title: FeaturesTranslations('2.title'),
-      description: FeaturesTranslations('2.description'),
+      title: FeaturesTranslations("2.title"),
+      description: FeaturesTranslations("2.description"),
       icon: StopCircleIcon,
     },
     {
-      title: FeaturesTranslations('3.title'),
-      description: FeaturesTranslations('3.description'),
+      title: FeaturesTranslations("3.title"),
+      description: FeaturesTranslations("3.description"),
       icon: SpeedIcon,
     },
     {
-      title: FeaturesTranslations('4.title'),
-      description: FeaturesTranslations('4.description'),
+      title: FeaturesTranslations("4.title"),
+      description: FeaturesTranslations("4.description"),
       icon: BuildIcon,
     },
     {
-      title: FeaturesTranslations('5.title'),
-      description: FeaturesTranslations('5.description'),
+      title: FeaturesTranslations("5.title"),
+      description: FeaturesTranslations("5.description"),
       icon: SupportIcon,
     },
     {
-      title: FeaturesTranslations('6.title'),
-      description: FeaturesTranslations('6.description'),
+      title: FeaturesTranslations("6.title"),
+      description: FeaturesTranslations("6.description"),
       icon: SecurityIcon,
     },
   ];
@@ -61,30 +61,30 @@ export default function HomePage() {
             <Link className="flex flex-row items-center" href="/">
               <Logo width={60} height={60} />
               <h1 className="text-xl font-semibold text-primary">
-                {NavTranslations('name')}
+                {NavTranslations("name")}
               </h1>
             </Link>
           </div>
           <div className="hidden md:flex flex-row gap-6 items-center mr-10">
-            <Link href="/">{NavTranslations('features')}</Link>
-            <Link href="/">{NavTranslations('pricing')}</Link>
-            <Link href="/">{NavTranslations('about')}</Link>
-            <Link href="/">{NavTranslations('contact')}</Link>
+            <Link href="#features">{NavTranslations("features")}</Link>
+            <Link href="#pricing">{NavTranslations("pricing")}</Link>
+            <Link href="#about">{NavTranslations("about")}</Link>
+            <Link href="#contact">{NavTranslations("contact")}</Link>
             <Button className="px-4 py-0" variant="contained">
-              {NavTranslations('login')}
+              {NavTranslations("login")}
             </Button>
           </div>
         </div>
         <div className="hero flex mt-5 flex-col items-center justify-center mx-auto px-4">
           <h1 className="text-3xl md:text-5xl mb-3 font-bold text-primary text-center max-w-2xl">
-            {LandingTranslations('title')}
+            {LandingTranslations("title")}
           </h1>
           <p className="text-base md:text-lg text-muted text-center">
-            {LandingTranslations('description')}
+            {LandingTranslations("description")}
           </p>
         </div>
         <div className="heroSample mt-5 w-full relative lg:h-[60rem] h-[30rem] overflow-hidden  md:block">
-          <div className="transform  md:scale-75 rotate-[3deg] w-full max-w-4xl mx-auto absolute z-0 top-0 left-0 transition-all duration-500 ease-in-out hover:z-20 hover:scale-105 hover:shadow-2xl">
+          <div className="transform  md:scale-75 rotate-[3deg] w-full max-w-4xl mx-auto absolute z-0 top-0 left-0 transition-all duration-500 ease-in-out hover:z-20 hover:scale-[1.008] hover:shadow-2xl">
             <div className="bg-gray-200 rounded-lg p-4 transition-all duration-500 hover:bg-gray-100">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex space-x-2">
@@ -98,7 +98,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="transform  md:scale-75 rotate-[10deg] w-full max-w-4xl mx-auto absolute z-10 top-10 right-10 transition-all duration-500 ease-in-out hover:z-20 hover:scale-105 hover:shadow-2xl">
+          <div className="transform  md:scale-75 rotate-[10deg] w-full max-w-4xl mx-auto absolute z-10 top-10 right-10 transition-all duration-500 ease-in-out hover:z-20 hover:scale-[1.008] hover:shadow-2xl">
             <div className="bg-gray-200 rounded-lg p-4 transition-all duration-500 hover:bg-gray-100">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex space-x-2">
@@ -116,7 +116,7 @@ export default function HomePage() {
         <div id="features" className="py-10 md:py-20 px-4">
           <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              {FeaturesTranslations('title')}
+              {FeaturesTranslations("title")}
             </h2>
             <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
           </div>
@@ -128,24 +128,24 @@ export default function HomePage() {
                   key={index}
                   title={feature.title}
                   className={clsx(
-                    'group p-8 rounded-2xl transition-all duration-300 hover:shadow-xl bg-surface hover:bg-surface/90'
+                    "group p-8 rounded-2xl transition-all duration-300 hover:shadow-xl bg-surface hover:bg-surface/90"
                   )}
                 >
                   <div className="mb-6">
                     <div
                       className={clsx(
-                        'w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10'
+                        "w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-primary/10"
                       )}
                     >
-                      <IconComponent className={clsx('w-6 h-6 text-primary')} />
+                      <IconComponent className={clsx("w-6 h-6 text-primary")} />
                     </div>
-                    <h3 className={clsx('text-xl font-semibold mb-3')}>
+                    <h3 className={clsx("text-xl font-semibold mb-3")}>
                       {feature.title}
                     </h3>
                   </div>
                   <p
                     className={clsx(
-                      'text-base leading-relaxed text-muted group-hover:text-primary/80 transition-colors duration-300'
+                      "text-base leading-relaxed text-muted group-hover:text-primary/80 transition-colors duration-300"
                     )}
                   >
                     {feature.description}
@@ -159,11 +159,11 @@ export default function HomePage() {
         <div id="pricing" className="py-10 md:py-20 px-4 bg-surface/50">
           <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              {PricingTranslations('title')}
+              {PricingTranslations("title")}
             </h2>
             <div className="w-20 h-1.5 bg-primary mx-auto rounded-full mb-6" />
             <p className="text-xl text-muted">
-              {PricingTranslations('description')}
+              {PricingTranslations("description")}
             </p>
           </div>
 
@@ -171,7 +171,7 @@ export default function HomePage() {
             <Card className="p-8 rounded-2xl bg-surface shadow-lg">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-primary mb-2">
-                  {PricingTranslations('free.title')}
+                  {PricingTranslations("free.title")}
                 </h3>
                 <div className="flex justify-center items-baseline mb-4">
                   <span className="text-5xl font-extrabold text-primary">
@@ -180,10 +180,10 @@ export default function HomePage() {
                   <span className="text-muted ml-1">/forever</span>
                 </div>
                 <p className="text-muted mb-6">
-                  {PricingTranslations('free.description')}
+                  {PricingTranslations("free.description")}
                 </p>
                 <Button variant="contained" className="w-full py-2">
-                  {PricingTranslations('free.cta')}
+                  {PricingTranslations("free.cta")}
                 </Button>
               </div>
             </Card>
@@ -193,7 +193,7 @@ export default function HomePage() {
         <div id="about" className="py-10 md:py-20 px-4">
           <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-              {AboutTranslations('title')}
+              {AboutTranslations("title")}
             </h2>
             <div className="w-20 h-1.5 bg-primary mx-auto rounded-full mb-6" />
           </div>
@@ -203,27 +203,27 @@ export default function HomePage() {
             <Card className="p-8 md:p-12 rounded-2xl bg-surface/80 backdrop-blur-sm">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-primary mb-4">
-                  {AboutTranslations('purpose.title')}
+                  {AboutTranslations("purpose.title")}
                 </h3>
                 <p className="text-muted leading-relaxed">
-                  {AboutTranslations('purpose.description')}
+                  {AboutTranslations("purpose.description")}
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h4 className="text-xl font-semibold text-primary mb-3">
-                    {AboutTranslations('purpose.useCase.title')}
+                    {AboutTranslations("purpose.useCase.title")}
                   </h4>
                   <p className="text-muted leading-relaxed">
-                    {AboutTranslations('purpose.useCase.description')}
+                    {AboutTranslations("purpose.useCase.description")}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-xl font-semibold text-primary mb-3">
-                    {AboutTranslations('purpose.vision.title')}
+                    {AboutTranslations("purpose.vision.title")}
                   </h4>
                   <p className="text-muted leading-relaxed">
-                    {AboutTranslations('purpose.vision.description')}
+                    {AboutTranslations("purpose.vision.description")}
                   </p>
                 </div>
               </div>
@@ -243,13 +243,13 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold text-primary mb-2">
-                    {AboutTranslations('creator.name')}
+                    {AboutTranslations("creator.name")}
                   </h3>
                   <p className="text-lg text-primary/60 mb-4">
-                    {AboutTranslations('creator.role')}
+                    {AboutTranslations("creator.role")}
                   </p>
                   <p className="text-muted leading-relaxed mb-6">
-                    {AboutTranslations('creator.description')}
+                    {AboutTranslations("creator.description")}
                   </p>
                   <div className="flex gap-4 justify-center md:justify-start">
                     <Link
