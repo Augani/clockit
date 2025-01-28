@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "name": "Clockit",
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register"
+  },
+  "HomePage": {
+    "title": "Welcome to the app!",
+    "about": "About",
+    "description": "This is an example of a multilingual app.",
+    "404": {
+      "pageNotFound": "Oops! The page you're looking for doesn't exist.",
+      "goHome": "Go to Home"
+    }
+  },
+  "landing": {
+    "title": "The best way to track your time while working remotely.",
+    "description": "Clockit is a time tracking app that helps you track your time while working remotely. It's easy to use and free to use."
+  },
+  "features": {
+    "title": "Features",
+    "1": {
+      "title": "Track your time",
+      "description": "Clockit is a time tracking app that helps you track your time while working remotely. It's easy to use and free to use."
+    },
+    "2": {
+      "title": "Take unlimited breaks",
+      "description": "Take unlimited breaks with Clockit. You can take as many breaks as you want, and Clockit will track your time for you."
+    },
+    "3": {
+      "title": "Generate reports",
+      "description": "Generate reports with Clockit. You can generate of all employees in your company."
+    },
+    "4": {
+      "title": "Easy to use",
+      "description": "No need to download any software. Just use your browser and start tracking your time."
+    },
+    "5": {
+      "title": "Free to use",
+      "description": "No need to pay for a subscription. Just use the app and start tracking your time."
+    },
+    "6": {
+      "title": "Secure",
+      "description": "Your data is secure and encrypted. We don't sell your data to anyone."
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "description": "No hidden fees, no surprises. Just powerful features at no cost.",
+    "free": {
+      "title": "Free Forever",
+      "description": "Get access to all features with no limitations",
+      "cta": "Get Started"
+    }
+  },
+  "about": {
+    "title": "About",
+    "purpose": {
+      "title": "Why We Built This",
+      "description": "Clockit was created to simplify time tracking and task management for remote teams and organizations. We understand the challenges of managing distributed workforces and ensuring accurate time reporting for payroll and project management.",
+      "useCase": {
+        "title": "How It Works",
+        "description": "Our platform allows employees to easily track their working hours and tasks in real-time. Organizations can monitor project progress, generate detailed reports, and streamline their payroll process with accurate time data. Perfect for both small teams and large enterprises looking to optimize their workforce management."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "We're committed to making time tracking and task management seamless and transparent for everyone. Whether you're an employee looking to track your hours or a manager overseeing multiple teams, Clockit provides the tools you need to work efficiently and maintain accountability."
+      }
+    },
+    "creator": {
+      "name": "Augustus Otu",
+      "role": "Founder & Lead Developer",
+      "description": "Full-stack developer with extensive experience in workforce management solutions. Having worked with remote teams and organizations, I understand the importance of reliable time tracking systems and am dedicated to creating tools that make work management easier for both employees and employers."
+    }
+  }
+}

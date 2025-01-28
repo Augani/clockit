@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome to the app!",
+  "description": "This is an example of a multilingual app.",
+  "404": {
+    "pageNotFound": "Oops! La página que buscas no existe.",
+    "goHome": "Ir a la página de inicio"
+  }
+}

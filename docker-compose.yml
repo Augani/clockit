@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15
+    container_name: clockit_db
+    ports:
+      - "5432:5432" # Expose PostgreSQL on localhost
+    environment:
+      POSTGRES_USER: clockit_user
+      POSTGRES_PASSWORD: secure_password
+      POSTGRES_DB: clockit_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  # pgAdmin for Database Management
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: clockit_pgadmin
+    ports:
+      - "5050:80" # Access pgAdmin via http://localhost:5050
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@clockit.com
+      PGADMIN_DEFAULT_PASSWORD: secure_admin_password
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  postgres_data:
