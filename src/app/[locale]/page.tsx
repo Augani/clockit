@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import Logo from "@/app/Logo";
-import Button from "@/components/ Button";
+import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Sample from "@/components/Sample";
-import Sample1 from "@/components/Sample1";
+import useLocale from '@/hooks/useLocale';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import BuildIcon from "@mui/icons-material/Build";
 import SecurityIcon from "@mui/icons-material/Security";
@@ -15,12 +15,15 @@ import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+
 export default function HomePage() {
   const NavTranslations = useTranslations("nav");
   const LandingTranslations = useTranslations("landing");
   const FeaturesTranslations = useTranslations("features");
   const PricingTranslations = useTranslations("pricing");
   const AboutTranslations = useTranslations("about");
+  const locale = useLocale();
+
   const Features = [
     {
       title: FeaturesTranslations("1.title"),
@@ -70,9 +73,11 @@ export default function HomePage() {
             <Link href="#pricing">{NavTranslations("pricing")}</Link>
             <Link href="#about">{NavTranslations("about")}</Link>
             <Link href="#contact">{NavTranslations("contact")}</Link>
-            <Button className="px-4 py-0" variant="contained">
-              {NavTranslations("login")}
-            </Button>
+            <Link href={`/${locale}/login`}>
+              <Button className="px-4 py-0" variant="contained">
+                {NavTranslations("login")}
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="hero flex mt-5 flex-col items-center justify-center mx-auto px-4">
@@ -108,7 +113,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="bg-white rounded-lg overflow-hidden p-4">
-                <Sample1 />
+                {/* <Sample1 /> */}
               </div>
             </div>
           </div>
@@ -301,6 +306,37 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+
+        {/* Footer Section */}
+        <footer className="py-8 px-4 bg-surface/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center">
+                <Logo width={40} height={40} />
+                <span className="ml-2 text-lg font-semibold text-primary">
+                  {NavTranslations("name")}
+                </span>
+              </div>
+              <div className="flex gap-6 text-sm text-muted">
+                <Link href="#features" className="hover:text-primary transition-colors">
+                  {NavTranslations("features")}
+                </Link>
+                <Link href="#pricing" className="hover:text-primary transition-colors">
+                  {NavTranslations("pricing")}
+                </Link>
+                <Link href="#about" className="hover:text-primary transition-colors">
+                  {NavTranslations("about")}
+                </Link>
+                <Link href="#contact" className="hover:text-primary transition-colors">
+                  {NavTranslations("contact")}
+                </Link>
+              </div>
+              <div className="text-sm text-muted">
+                © {new Date().getFullYear()} {NavTranslations("name")}
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

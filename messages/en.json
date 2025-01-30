@@ -76,5 +76,10 @@
       "role": "Founder & Lead Developer",
       "description": "Full-stack developer with extensive experience in workforce management solutions. Having worked with remote teams and organizations, I understand the importance of reliable time tracking systems and am dedicated to creating tools that make work management easier for both employees and employers."
     }
+  },
+  "NotFoundPage": {
+    "title": "Oops! The page you're looking for doesn't exist.",
+    "description": "It seems you've stumbled upon a page that doesn't exist. Please check the URL or navigate back to the homepage.",
+    "backHome": "Go to Home"
   }
 }

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ThemeProvider from '@/components/ThemeProvider';
-import { routing } from '@/i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import '../globals.css';
+// import { notFound } from 'next/navigation';
+import './globals.css';
+
 export default async function LocaleLayout({
   children,
   params: { locale },
@@ -12,10 +12,11 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+    console.log(locale);
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
+//   if (!routing.locales.includes(locale as any)) {
+//     notFound();
+//   }
 
   // Providing all messages to the client
   // side is the easiest way to get started
