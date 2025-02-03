@@ -1,5 +1,7 @@
 /* font montserrat */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* roboto */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,5 +20,71 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Roboto", sans-serif;
+}
+
+.ProseMirror {
+  @apply min-h-[100px] outline-none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-gray-400 float-left h-0 pointer-events-none;
+  content: attr(data-placeholder);
+}
+
+.ProseMirror > * + * {
+  @apply mt-4;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply pl-6;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror h1 {
+  @apply text-2xl font-bold;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-bold;
+}
+
+.ProseMirror h3 {
+  @apply text-lg font-bold;
+}
+
+.ProseMirror code {
+  @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.ProseMirror pre {
+  @apply bg-gray-900 text-white p-4 rounded-lg font-mono text-sm my-4;
+}
+
+.ProseMirror blockquote {
+  @apply pl-4 border-l-4 border-gray-200 text-gray-600 italic;
+}
+
+.ProseMirror a {
+  @apply text-primary underline;
+}
+
+.ProseMirror .task-list {
+  @apply list-none pl-0;
+}
+
+.ProseMirror .task-list-item {
+  @apply flex items-start gap-2;
+}
+
+.ProseMirror .task-list-item input[type="checkbox"] {
+  @apply mt-1;
 }

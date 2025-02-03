@@ -77,3 +77,68 @@ Augustus Otu - Founder & Lead Developer
 ## Support
 
 For support, please open an issue in the GitHub repository or contact the development team.
+
+## Docker Setup
+
+### Option 1: Pull from Docker Hub
+
+```bash
+# Pull the image
+docker pull augustusotu/clockit:latest
+
+# Create a .env file with your environment variables
+cp .env.example .env
+
+# Run the container
+docker-compose up -d
+```
+
+### Option 2: Build Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/clockit.git
+cd clockit
+
+# Build the image
+docker build -t clockit .
+
+# Run with docker-compose
+docker-compose up -d
+```
+
+### Environment Variables
+
+Make sure to set up these environment variables in your `.env` file:
+
+```env
+# Database
+POSTGRES_USER=clockit_user
+POSTGRES_PASSWORD=your_secure_password
+POSTGRES_DB=clockit_db
+DATABASE_URL=postgresql://clockit_user:your_secure_password@db:5432/clockit_db
+
+# Next Auth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_nextauth_secret
+
+# OAuth (if using)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+### Docker Commands
+
+```bash
+# Start the application
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+
+# Rebuild the application
+docker-compose up -d --build
+```

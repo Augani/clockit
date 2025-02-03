@@ -1,4 +1,5 @@
-import { AccessTime, CloudDownload, People } from '@mui/icons-material';
+"use client";
+import { AccessTime, CloudDownload, People } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -16,8 +17,8 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
-import React from 'react';
+} from "@mui/material";
+import React from "react";
 
 const Dashboard: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ const Dashboard: React.FC = () => {
         sx={{
           mb: { xs: 2, md: 4 },
           fontWeight: 600,
-          fontSize: { xs: '1.75rem', md: '2.125rem' },
+          fontSize: { xs: "1.75rem", md: "2.125rem" },
         }}
       >
         Dashboard
@@ -159,7 +160,7 @@ const Dashboard: React.FC = () => {
                       <TableCell
                         sx={{
                           fontWeight: 600,
-                          display: { xs: 'none', sm: 'table-cell' },
+                          display: { xs: "none", sm: "table-cell" },
                         }}
                       >
                         Name
@@ -168,7 +169,7 @@ const Dashboard: React.FC = () => {
                       <TableCell
                         sx={{
                           fontWeight: 600,
-                          display: { xs: 'none', md: 'table-cell' },
+                          display: { xs: "none", md: "table-cell" },
                         }}
                       >
                         Today&apos;s Hours
@@ -176,7 +177,7 @@ const Dashboard: React.FC = () => {
                       <TableCell
                         sx={{
                           fontWeight: 600,
-                          display: { xs: 'none', md: 'table-cell' },
+                          display: { xs: "none", md: "table-cell" },
                         }}
                       >
                         Weekly Hours
@@ -187,19 +188,19 @@ const Dashboard: React.FC = () => {
                   <TableBody>
                     <TableRow>
                       <TableCell
-                        sx={{ display: { xs: 'none', sm: 'table-cell' } }}
+                        sx={{ display: { xs: "none", sm: "table-cell" } }}
                       >
                         <Stack direction="row" alignItems="center" spacing={2}>
                           <Box
                             sx={{
                               width: 32,
                               height: 32,
-                              borderRadius: '50%',
-                              bgcolor: 'primary.light',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: 'white',
+                              borderRadius: "50%",
+                              bgcolor: "primary.light",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "white",
                               fontWeight: 500,
                             }}
                           >
@@ -210,7 +211,7 @@ const Dashboard: React.FC = () => {
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={1}>
-                          <Box sx={{ display: { sm: 'none' } }}>
+                          <Box sx={{ display: { sm: "none" } }}>
                             <Stack
                               direction="row"
                               alignItems="center"
@@ -220,12 +221,12 @@ const Dashboard: React.FC = () => {
                                 sx={{
                                   width: 32,
                                   height: 32,
-                                  borderRadius: '50%',
-                                  bgcolor: 'primary.light',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
+                                  borderRadius: "50%",
+                                  bgcolor: "primary.light",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  color: "white",
                                   fontWeight: 500,
                                 }}
                               >
@@ -238,12 +239,12 @@ const Dashboard: React.FC = () => {
                         </Stack>
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         8h 30m
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         32h 15m
                       </TableCell>
@@ -260,7 +261,7 @@ const Dashboard: React.FC = () => {
                             variant="outlined"
                             color="primary"
                             size="small"
-                            sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+                            sx={{ display: { xs: "none", sm: "inline-flex" } }}
                           >
                             View
                           </Button>
@@ -269,19 +270,19 @@ const Dashboard: React.FC = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell
-                        sx={{ display: { xs: 'none', sm: 'table-cell' } }}
+                        sx={{ display: { xs: "none", sm: "table-cell" } }}
                       >
                         <Stack direction="row" alignItems="center" spacing={2}>
                           <Box
                             sx={{
                               width: 32,
                               height: 32,
-                              borderRadius: '50%',
-                              bgcolor: 'primary.light',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: 'white',
+                              borderRadius: "50%",
+                              bgcolor: "primary.light",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "white",
                               fontWeight: 500,
                             }}
                           >
@@ -292,7 +293,7 @@ const Dashboard: React.FC = () => {
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={1}>
-                          <Box sx={{ display: { sm: 'none' } }}>
+                          <Box sx={{ display: { sm: "none" } }}>
                             <Stack
                               direction="row"
                               alignItems="center"
@@ -302,12 +303,12 @@ const Dashboard: React.FC = () => {
                                 sx={{
                                   width: 32,
                                   height: 32,
-                                  borderRadius: '50%',
-                                  bgcolor: 'primary.light',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
+                                  borderRadius: "50%",
+                                  bgcolor: "primary.light",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  color: "white",
                                   fontWeight: 500,
                                 }}
                               >
@@ -320,12 +321,12 @@ const Dashboard: React.FC = () => {
                         </Stack>
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         6h 45m
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         28h 30m
                       </TableCell>
@@ -342,7 +343,7 @@ const Dashboard: React.FC = () => {
                             variant="outlined"
                             color="primary"
                             size="small"
-                            sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+                            sx={{ display: { xs: "none", sm: "inline-flex" } }}
                           >
                             View
                           </Button>
@@ -351,19 +352,19 @@ const Dashboard: React.FC = () => {
                     </TableRow>
                     <TableRow>
                       <TableCell
-                        sx={{ display: { xs: 'none', sm: 'table-cell' } }}
+                        sx={{ display: { xs: "none", sm: "table-cell" } }}
                       >
                         <Stack direction="row" alignItems="center" spacing={2}>
                           <Box
                             sx={{
                               width: 32,
                               height: 32,
-                              borderRadius: '50%',
-                              bgcolor: 'primary.light',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: 'white',
+                              borderRadius: "50%",
+                              bgcolor: "primary.light",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "white",
                               fontWeight: 500,
                             }}
                           >
@@ -374,7 +375,7 @@ const Dashboard: React.FC = () => {
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={1}>
-                          <Box sx={{ display: { sm: 'none' } }}>
+                          <Box sx={{ display: { sm: "none" } }}>
                             <Stack
                               direction="row"
                               alignItems="center"
@@ -384,12 +385,12 @@ const Dashboard: React.FC = () => {
                                 sx={{
                                   width: 32,
                                   height: 32,
-                                  borderRadius: '50%',
-                                  bgcolor: 'primary.light',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  color: 'white',
+                                  borderRadius: "50%",
+                                  bgcolor: "primary.light",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  color: "white",
                                   fontWeight: 500,
                                 }}
                               >
@@ -404,12 +405,12 @@ const Dashboard: React.FC = () => {
                         </Stack>
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         4h 15m
                       </TableCell>
                       <TableCell
-                        sx={{ display: { xs: 'none', md: 'table-cell' } }}
+                        sx={{ display: { xs: "none", md: "table-cell" } }}
                       >
                         25h 45m
                       </TableCell>
@@ -426,7 +427,7 @@ const Dashboard: React.FC = () => {
                             variant="outlined"
                             color="primary"
                             size="small"
-                            sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
+                            sx={{ display: { xs: "none", sm: "inline-flex" } }}
                           >
                             View
                           </Button>
