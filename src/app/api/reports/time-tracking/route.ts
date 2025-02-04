@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import dayjs from "@/lib/dayjs";
 
 export async function GET(request: Request) {

@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { startOfMonth, endOfMonth, parseISO } from "date-fns";
 import { TimeLog } from "@prisma/client";
 
@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     const end = endOfMonth(parseISO(monthDate));
 
     // Fetch time logs for the month
-    const timeLogs = await prisma.timeLog.findMany({
+    const timeLogs: any = await prisma.timeLog.findMany({
       where: {
         userId: userId || session.user.id,
         clockIn: {
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
 
     // Group time logs by date
     const calendarData = timeLogs.reduce(
-      (acc, log) => {
+      (acc: any, log: any) => {
         const date = log.clockIn.toISOString().split("T")[0];
         if (!acc[date]) {
           acc[date] = [];
@@ -50,7 +50,7 @@ export async function GET(request: Request) {
           duration: log.duration,
           breakDuration: log.breakDuration,
           status: log.status,
-          tasks: log.tasks.map((task) => ({
+          tasks: log.tasks.map((task: any) => ({
             id: task.id,
             description: task.description,
           })),
@@ -62,10 +62,10 @@ export async function GET(request: Request) {
 
     // Calculate daily summaries
     const dailySummaries = Object.entries(calendarData).reduce(
-      (acc, [date, logs]) => {
+      (acc: any, [date, logs]: any) => {
         acc[date] = {
           totalWorkHours: logs.reduce(
-            (sum, log) =>
+            (sum: any, log: any) =>
               sum +
               (log.duration || log.clockOut
                 ? (log.clockOut ? log.clockOut : new Date()) - log.clockIn
@@ -74,9 +74,12 @@ export async function GET(request: Request) {
             0
           ),
           totalBreakHours:
-            logs.reduce((sum, log) => sum + (log.breakDuration || 0), 0) / 60,
+            logs.reduce(
+              (sum: any, log: any) => sum + (log.breakDuration || 0),
+              0
+            ) / 60,
           taskCount: logs.reduce(
-            (sum, log) => sum + (log.tasks?.length || 0),
+            (sum: any, log: any) => sum + (log.tasks?.length || 0),
             0
           ),
           status: logs[logs.length - 1]?.status || "no-data",

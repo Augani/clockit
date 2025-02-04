@@ -43,7 +43,7 @@ interface TaskEditorProps {
   disabled?: boolean;
 }
 
-const MenuButton = ({ onClick, active, disabled, title, children }) => (
+const MenuButton = ({ onClick, active, disabled, title, children }: any) => (
   <Tooltip title={title}>
     <button
       onClick={onClick}

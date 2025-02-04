@@ -1,14 +1,11 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { startOfDay, endOfDay } from "date-fns";
 import dayjs from "@/lib/dayjs";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { date: string } }
-) {
+export async function GET(request: Request, { params }: { params: any }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
@@ -45,7 +42,7 @@ export async function GET(
 
     // Calculate daily summary
     const summary = timeLogs.reduce(
-      (acc, log) => {
+      (acc: any, log: any) => {
         // Calculate work duration
         const workDuration = log.duration || 0;
         const breakDuration = log.breakDuration || 0;
@@ -64,7 +61,7 @@ export async function GET(
       success: true,
       data: {
         date: date.format("YYYY-MM-DD"),
-        timeLogs: timeLogs.map((log) => ({
+        timeLogs: timeLogs.map((log: any) => ({
           id: log.id,
           clockIn: log.clockIn,
           clockOut: log.clockOut,

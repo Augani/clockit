@@ -15,11 +15,15 @@ export const useAdminUsers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const getUsers = async (filters?: { role?: string; department?: string }) => {
+  const getUsers = async (filters?: {
+    role?: string;
+    department?: string;
+    clockedInToday?: boolean;
+  }): Promise<any> => {
     try {
       setIsLoading(true);
       setError(null);
-      const params = new URLSearchParams(filters);
+      const params = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`/api/admin/users?${params}`);
       const data = await response.json();
 

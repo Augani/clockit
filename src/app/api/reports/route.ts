@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import dayjs from "@/lib/dayjs"; // Import configured dayjs
 
 export async function GET(request: Request) {
@@ -208,7 +208,7 @@ async function getTopPerformers(startDate: Date, endDate: Date) {
 
   const now = dayjs();
   const userStats = timeLogs.reduce(
-    (acc, log) => {
+    (acc: any, log: any) => {
       if (!acc[log.userId]) {
         acc[log.userId] = {
           user: {
@@ -244,7 +244,7 @@ async function getTopPerformers(startDate: Date, endDate: Date) {
   );
 
   return Object.values(userStats)
-    .map((stat) => ({
+    .map((stat: any) => ({
       user: stat.user,
       totalHours: Math.round((stat.totalDuration / 60) * 100) / 100,
       taskCount: stat.taskCount,

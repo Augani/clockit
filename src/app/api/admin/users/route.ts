@@ -50,7 +50,7 @@ export async function GET(request: Request) {
     const users = await prisma.user.findMany(baseQuery as any);
 
     // Transform the data based on whether we're getting clocked in users or all users
-    const transformedUsers = users.map((user) => {
+    const transformedUsers = users.map((user: any) => {
       const baseUser = {
         id: user.id,
         name: user.name,

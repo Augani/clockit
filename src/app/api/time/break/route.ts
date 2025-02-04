@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
 // Use an absolute import if possible – adjust this path to match your project structure.
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { differenceInMinutes } from "date-fns";
 
 export async function POST(request: Request) {

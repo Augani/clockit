@@ -1,23 +1,12 @@
 "use client";
-
+//
 import React, { useState, useEffect } from "react";
 import SideBar from "@/components/SideBar";
 import TopBar from "@/components/TopBar";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
-import {
-  ClockIcon,
-  CalendarIcon,
-  CheckCircleIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Card,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-  Badge,
-} from "@mui/material";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { Card, CircularProgress, Badge } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -56,7 +45,7 @@ function CalendarPage() {
   const t = useTranslations("calendar");
   const { data: session } = useSession();
   const [currentDate, setCurrentDate] = useState<dayjs.Dayjs>(dayjs());
-  const [calendarData, setCalendarData] = useState<CalendarData | null>(null);
+  const [calendarData, setCalendarData] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchCalendarData = async (date: dayjs.Dayjs) => {
@@ -222,8 +211,8 @@ function CalendarPage() {
 
                   <div className="space-y-3">
                     <h4 className="font-medium">{t("tasks")}</h4>
-                    {selectedDayData.logs.map((log) =>
-                      log.tasks.map((task) => (
+                    {selectedDayData.logs.map((log: any) =>
+                      log.tasks.map((task: any) => (
                         <div
                           key={task.id}
                           className="flex items-start gap-2 p-2 bg-gray-50 rounded"

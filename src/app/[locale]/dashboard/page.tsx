@@ -163,7 +163,7 @@ function DashboardPage() {
     try {
       const status = await getStatus();
       console.log("status", status);
-      setTimeStatus(status);
+      setTimeStatus(status as TimeStatus);
       setHasTimeLogToday(status.hasTimeLogToday);
     } catch (error) {
       console.error("Error fetching time status:", error);

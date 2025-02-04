@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/api/prisma";
 import { NextResponse } from "next/server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import dayjs from "@/lib/dayjs";
 import * as XLSX from "xlsx";
 import { generateDateRange } from "@/lib/utils/dateRange";

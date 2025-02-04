@@ -15,7 +15,6 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
-  const locale = useLocale();
   const orgName = process.env.NEXT_PUBLIC_ORG_NAME || "Organization";
   return (
     <Dialog

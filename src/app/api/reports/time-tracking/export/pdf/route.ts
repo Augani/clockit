@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/api/prisma";
 import dayjs from "@/lib/dayjs";
 import { getServerSession } from "next-auth";
@@ -38,7 +38,7 @@ function stripHtmlTags(html: string): string {
  * Loads and embeds the logo image.
  * Here we convert an SVG logo to PNG using sharp.
  */
-export async function embedLogo(pdfDoc: PDFDocument) {
+async function embedLogo(pdfDoc: PDFDocument) {
   const logoPath = path.join(process.cwd(), "public", "logo.svg");
   const svgBuffer = await fs.readFile(logoPath);
   const pngBuffer = await sharp(svgBuffer).png().toBuffer();
@@ -346,13 +346,12 @@ export async function POST(request: Request) {
         width: infoBoxWidth,
         height: infoBoxHeight,
         color: COLORS.background,
-        borderRadius: 6,
         borderColor: COLORS.border,
         borderWidth: 1,
       });
 
       // User name with prominence
-      page.drawText(user.name, {
+      page.drawText(user.name || "", {
         x: margin + 15,
         y: yPosition - 5,
         size: 14,
@@ -370,7 +369,7 @@ export async function POST(request: Request) {
       ];
 
       userDetails.forEach(([label, value]) => {
-        page.drawText(label, {
+        page.drawText(label || "", {
           x: margin + 15,
           y: yPosition,
           size: 10,

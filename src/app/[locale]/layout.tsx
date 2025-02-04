@@ -5,23 +5,25 @@ import { routing } from "@/i18n/routing";
 import ThemeProvider from "@/components/ThemeProvider";
 import "@/app/globals.css";
 import { Providers } from "@/components/Providers";
+type Params = Promise<{ locale: string }>;
+type LocaleLayoutProps = {
+  children: React.ReactNode;
+  params: Params;
+};
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
-  // Ensure that the incoming `locale` is valid
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params,
+}: LocaleLayoutProps) {
+  const { locale } = await params;
+
+  // Validate locale – if invalid, show a 404 page.
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
+  // Get localized messages by passing the locale.
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale} className="h-full">
@@ -37,5 +39,5 @@ export default async function LocaleLayout({
 }
 
 export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "es" }];
+  return routing.locales.map((locale) => ({ locale }));
 }

@@ -200,13 +200,6 @@ function TeamPage() {
                 }
                 page={0}
                 rowsPerPage={10}
-                responsive={true} // Add responsive prop
-                mobileColumns={[
-                  // Specify important columns for mobile view
-                  "name",
-                  "position",
-                  "status",
-                ]}
               />
             </div>
           )}

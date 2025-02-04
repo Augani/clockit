@@ -112,10 +112,14 @@ function TimeTrackingTab() {
       const params = new URLSearchParams({
         startDate: startDate
           ? startDate.toISOString()
-          : dayjs().startOf(timeRange).toISOString(),
+          : dayjs()
+              .startOf(timeRange as any)
+              .toISOString(),
         endDate: endDate
           ? endDate.toISOString()
-          : dayjs().endOf(timeRange).toISOString(),
+          : dayjs()
+              .endOf(timeRange as any)
+              .toISOString(),
       });
 
       const response = await fetch(
@@ -145,10 +149,14 @@ function TimeTrackingTab() {
       const body = {
         startDate: startDate
           ? startDate.toISOString()
-          : dayjs().startOf(timeRange).toISOString(),
+          : dayjs()
+              .startOf(timeRange as any)
+              .toISOString(),
         endDate: endDate
           ? endDate.toISOString()
-          : dayjs().endOf(timeRange).toISOString(),
+          : dayjs()
+              .endOf(timeRange as any)
+              .toISOString(),
       };
 
       const response = await fetch("/api/reports/time-tracking/export/pdf", {
@@ -185,10 +193,14 @@ function TimeTrackingTab() {
         userId,
         startDate: startDate
           ? startDate.toISOString()
-          : dayjs().startOf(timeRange).toISOString(),
+          : dayjs()
+              .startOf(timeRange as any)
+              .toISOString(),
         endDate: endDate
           ? endDate.toISOString()
-          : dayjs().endOf(timeRange).toISOString(),
+          : dayjs()
+              .endOf(timeRange as any)
+              .toISOString(),
       });
 
       const response = await fetch(
@@ -219,10 +231,14 @@ function TimeTrackingTab() {
         userId,
         startDate: startDate
           ? startDate.toISOString()
-          : dayjs().startOf(timeRange).toISOString(),
+          : dayjs()
+              .startOf(timeRange as any)
+              .toISOString(),
         endDate: endDate
           ? endDate.toISOString()
-          : dayjs().endOf(timeRange).toISOString(),
+          : dayjs()
+              .endOf(timeRange as any)
+              .toISOString(),
       };
 
       const response = await fetch("/api/reports/time-tracking/export/pdf", {
