@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { getRequestConfig } from 'next-intl/server';
-import { routing } from './routing';
+import { getRequestConfig } from "next-intl/server";
+import { routing } from "./routing";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // This typically corresponds to the `[locale]` segment

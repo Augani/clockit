@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Blackstar API
+  description: Blackstar API
+  version: 1.0.0
+  
+servers:
+  - url: http://api.example.com/v1
+    description: Production server
+  - url: http://staging-api.example.com/v1
+    description: Staging server
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      description: Retrieve a list of all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: Users not found
+    
+    post:
+      summary: Create a new user
+      description: Add a new user to the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Invalid input
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - username
+        - email

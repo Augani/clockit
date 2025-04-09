@@ -1,0 +1,7366 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/kyc/{kycId}/submit": {
+      "put": {
+        "tags": ["KYC"],
+        "summary": "Submit KYC",
+        "description": "Submit KYC",
+        "operationId": "submitKYC",
+        "parameters": [
+          {
+            "name": "kycId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/{mobileMoneyID}/verify": {
+      "put": {
+        "tags": ["Mobile Money"],
+        "summary": "Verify Mobile Money Detail",
+        "description": "Verify Mobile Money Detail",
+        "operationId": "verifyMobileMoneyDetail",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "mobileMoneyID",
+            "in": "path",
+            "description": "Mobile Money UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MobileMoneyDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/report/client/{clientId}/valuationReport": {
+      "post": {
+        "tags": ["Report"],
+        "summary": "Valuation report",
+        "description": "Get valuation report for client or portfolio",
+        "operationId": "downloadValuationReport",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Start Date based on which we need to generate valuation report. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "End Date based on which we need to generate valuation report. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          },
+          {
+            "name": "false",
+            "in": "query",
+            "description": "is generate password protected report?",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/public/user/refresh-token": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Refresh access token",
+        "description": "Refresh access token",
+        "operationId": "refreshToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/public/user/authenticate": {
+      "post": {
+        "tags": ["User"],
+        "description": "User Login",
+        "operationId": "loginByPassOTP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/product/{productId}/latest/price": {
+      "post": {
+        "tags": ["Security"],
+        "summary": "Get latest available price for security from order offer or market",
+        "description": "Get latest available price for security from order offer or market",
+        "operationId": "getPriceForSecurity",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Security UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/product/{id}/consideration": {
+      "post": {
+        "tags": ["Consideration", "Security"],
+        "summary": "Calculate Consideration",
+        "description": "Calculate Consideration",
+        "operationId": "calculateConsiderationForSecurity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Security Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Date based on which we need to calculate consideration. Today date is used in case of missing. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          },
+          {
+            "name": "settlementType",
+            "in": "query",
+            "description": "Settlement Type",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["T0", "T1", "T2", "T3"]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceCalculationRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceCalculationResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/product/search": {
+      "post": {
+        "tags": ["Security"],
+        "summary": "Get available products",
+        "description": "Get available products",
+        "operationId": "searchProduct",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current Page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageSecurityDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/performance-chart": {
+      "post": {
+        "tags": ["Performance"],
+        "summary": "Performance Chart",
+        "description": "Get performance chart data-points for portfolios or clients or securities",
+        "operationId": "performanceChart",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Start date based on which we need to fetch performance. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "End date based on which we need to fetch performance. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerformanceChartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerformanceChartResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{kycId}/upload": {
+      "post": {
+        "tags": ["KYC"],
+        "summary": "Upload file for Kyc",
+        "description": "Upload file for Kyc",
+        "operationId": "addKycFiles",
+        "parameters": [
+          {
+            "name": "kycId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/KYCUploadRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/get": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Get UserKYC",
+        "description": "Get UserKYC",
+        "operationId": "getUserKYC",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["KYC"],
+        "summary": "Get UserKYC",
+        "description": "Get UserKYC",
+        "operationId": "searchUserKYC",
+        "parameters": [
+          {
+            "name": "includeAnswers",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserKYCSearchRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/get/all": {
+      "post": {
+        "tags": ["KYC"],
+        "summary": "Get All UserKYC",
+        "description": "Get All UserKYC",
+        "operationId": "getAllUserKYC",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "includeAnswers",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserKYCSearchRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageUserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/add": {
+      "post": {
+        "tags": ["KYC"],
+        "summary": "Add Kyc Answers",
+        "description": "Add Kyc Answers",
+        "operationId": "addKycAnswers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserKYCQuestionAnswerRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/transaction/search": {
+      "post": {
+        "tags": ["Client Transaction", "Client Order"],
+        "summary": "Get Past Orders",
+        "description": "Get past orders for client or portfolio",
+        "operationId": "searchClientTransactions",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current Page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort based on field",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "assetClass"
+          },
+          {
+            "name": "sortDir",
+            "in": "query",
+            "description": "Sort by ascending or desc",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["ASC", "DESC"]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTransactionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/product/{securityId}/position": {
+      "post": {
+        "tags": ["Position"],
+        "summary": "Get position for portfolio for selected security",
+        "description": "Get position for portfolio for selected security",
+        "operationId": "getPositionForSecurity",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "securityId",
+            "in": "path",
+            "description": "Security UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "counterPartyId",
+            "in": "query",
+            "description": "Counter Party UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "custodianId",
+            "in": "query",
+            "description": "Custodian UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date based on which we need to fetch position. Today date is used in case of missing. Valid date format:dd-MM-yyyy",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientPositionResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/position": {
+      "post": {
+        "tags": ["Position"],
+        "summary": "Get Positions based on different asset class",
+        "description": "Get positions of client or portfolio",
+        "operationId": "getAllPositions",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "securityId",
+            "in": "query",
+            "description": "Security UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date based on which we need to fetch position. Today date is used in case of missing. Valid date format:dd-MM-yyyy",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientPositionResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/search": {
+      "post": {
+        "tags": ["Client Transaction", "Client Order"],
+        "summary": "Get Past Orders",
+        "description": "Get past orders for client or portfolio",
+        "operationId": "searchClientTransactions_1",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current Page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageActivityTransactionResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/product/{id}/consideration": {
+      "post": {
+        "tags": ["Consideration", "Security"],
+        "summary": "Calculate Consideration",
+        "description": "Calculate Consideration",
+        "operationId": "calculateConsiderationForSecurity_1",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Security Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Date based on which we need to calculate consideration. Today date is used in case of missing. Valid date format:dd-MM-yyyy",
+              "format": "dd-MM-yyyy",
+              "example": "13-01-2020"
+            }
+          },
+          {
+            "name": "settlementType",
+            "in": "query",
+            "description": "Settlement Type",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["T0", "T1", "T2", "T3"]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceCalculationRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriceCalculationResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/order/v1/place": {
+      "post": {
+        "tags": ["Client Order"],
+        "summary": "Create order",
+        "description": "Create order for client",
+        "operationId": "placeClientOrderV1",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientOrderRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CPClientOrderResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/order/search": {
+      "post": {
+        "tags": ["Client Order"],
+        "summary": "Search Client Order",
+        "description": "Search Client Order",
+        "operationId": "searchClientOrders",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CPClientOrderSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CPClientOrderResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/order/place": {
+      "post": {
+        "tags": ["Client Order"],
+        "summary": "Create order",
+        "description": "Create order for client",
+        "operationId": "placeClientOrder",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientOrderRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CPClientOrderResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/mobile-money/collectionRequest": {
+      "post": {
+        "tags": ["Collection Withdrawal", "Mobile Money"],
+        "summary": "Direct Receive Money",
+        "description": "Direct Receive Money",
+        "operationId": "directReceiveMoney",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HubtleCollectionRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionWithdrawalRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/collectionRequest/v1/create": {
+      "post": {
+        "tags": ["Collection Withdrawal"],
+        "summary": "Create Collection Request with client reference",
+        "description": "Create Collection Request with client reference",
+        "operationId": "createCollectionRequestWithClientReference",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HubtleCollectionRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionWithdrawalRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{portfolioId}/collectionRequest/create": {
+      "post": {
+        "tags": ["Collection Withdrawal"],
+        "summary": "Create Collection Request",
+        "description": "Create Collection Request",
+        "operationId": "createCollectionRequest",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "path",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HubtleCollectionRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectUrlDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/create": {
+      "post": {
+        "tags": ["Portfolio"],
+        "summary": "Add Portfolio",
+        "description": "Add Portfolio",
+        "operationId": "createPortfolio",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CPPortfolioRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/order/search": {
+      "post": {
+        "tags": ["Client Order"],
+        "summary": "List all order",
+        "description": "List all order of client or portfolio",
+        "operationId": "searchClientOrders_1",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CPClientOrderSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCPClientOrderResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/order-offer/search": {
+      "post": {
+        "tags": ["Order Offer"],
+        "summary": "List order offer",
+        "description": "List available order offers",
+        "operationId": "searchOrderOffer",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort order",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderOfferSearchRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCPOrderOfferDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/{mobileMoneyID}/validate": {
+      "post": {
+        "tags": ["Mobile Money"],
+        "summary": "Validate Mobile Money Detail with OTP",
+        "description": "Validate Mobile Money Detail with OTP",
+        "operationId": "validateOTP",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "mobileMoneyID",
+            "in": "path",
+            "description": "Mobile Money UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateOTPDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/{mobileMoneyID}/resend": {
+      "post": {
+        "tags": ["Mobile Money"],
+        "summary": "Resend OTP for Mobile Money Verification",
+        "description": "Resend OTP for Mobile Money Verification",
+        "operationId": "resendOTP",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "mobileMoneyID",
+            "in": "path",
+            "description": "Mobile Money UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResendOtpRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/name": {
+      "post": {
+        "tags": ["Mobile Money"],
+        "summary": "Get Mobile Money Name",
+        "description": "Get Mobile Money Name",
+        "operationId": "getMobileMoneyDetailName",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MobileMoneyDetailRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MobileMoneyDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/add": {
+      "post": {
+        "tags": ["Mobile Money"],
+        "summary": "Add Mobile Money Detail",
+        "description": "Add Mobile Money Detail",
+        "operationId": "addMobileMoneyDetail",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MobileMoneyDetailRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MobileMoneyDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/collectionRequest/search": {
+      "post": {
+        "tags": ["Collection Withdrawal"],
+        "summary": "Get all the collection request",
+        "description": "Get all the collection request based on client or portfolio",
+        "operationId": "getAllCollectionWithdrawalRequest",
+        "parameters": [
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Current page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionWithdrawalRequestSearch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCollectionWithdrawalRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/balance/validate": {
+      "post": {
+        "tags": ["Validate Balance"],
+        "summary": "Validate portfolio available balance",
+        "description": "Validate portfolio available balance",
+        "operationId": "validateBalance",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "description": "Portfolio UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "currencyCode",
+            "in": "query",
+            "description": "Currency Code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "considerationWithCurrency",
+            "in": "query",
+            "description": "Consideration with currency",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/search": {
+      "post": {
+        "tags": ["Find client"],
+        "summary": "Get client",
+        "description": "Get client",
+        "operationId": "searchClient",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CPClientSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicClientDetailDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/product/{securityID}/fundParticular": {
+      "get": {
+        "tags": ["Security"],
+        "summary": "Get Fund Particular",
+        "description": "Get Fund Particular",
+        "operationId": "getFundParticular",
+        "parameters": [
+          {
+            "name": "securityID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{userKYCID}/status/check": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Check UserKYC status",
+        "description": "Check UserKYC status",
+        "operationId": "checkUserKYCStatus",
+        "parameters": [
+          {
+            "name": "userKYCID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKYCDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{kycId}/{subSectionIdentifier}/answer/get": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Get KYC Answers",
+        "description": "Get KYC Answers",
+        "operationId": "getKYCAnswersSectionWise",
+        "parameters": [
+          {
+            "name": "subSectionIdentifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kycId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserKYCAnswerDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{kycId}/document/{docId}/download": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Download document uploaded for a KYC",
+        "description": "Download KYC File",
+        "operationId": "downloadKycDocument",
+        "parameters": [
+          {
+            "name": "kycId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{id}/documents": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Fetch list of KYC documents",
+        "description": "List KYC Documents",
+        "operationId": "listKycDocuments",
+        "parameters": [
+          {
+            "name": "includeArchived",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageKYCDocumentDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{clientSubTypeId}/get-kyc": {
+      "get": {
+        "tags": ["KYC"],
+        "summary": "Get KYC questions",
+        "description": "Get KYC questions",
+        "operationId": "getKYCFormBasedOnClientSubType",
+        "parameters": [
+          {
+            "name": "clientSubTypeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/KYCFormDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/clients": {
+      "get": {
+        "tags": ["Find client"],
+        "summary": "Get All Clients",
+        "description": "Get client assigned to logged in user",
+        "operationId": "getAssignedClients",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BasicClientDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio": {
+      "get": {
+        "tags": ["Find Portfolio"],
+        "summary": "Get All Portfolio",
+        "description": "Get all portfolio assigned to client",
+        "operationId": "getPortfolios",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PortfolioDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/{id}": {
+      "get": {
+        "tags": ["Find Portfolio"],
+        "summary": "Get portfolio",
+        "description": "Find portfolio using id",
+        "operationId": "getPortfolioById",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of Portfolio to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/portfolio/search": {
+      "get": {
+        "tags": ["Find Portfolio"],
+        "summary": "Search portfolio",
+        "description": "Search portfolio assigned to client",
+        "operationId": "findPortfolios",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "searchQuery",
+            "in": "query",
+            "description": "Portfolio name, portfolio code or csd no",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "current page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Maximum records",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagePortfolioDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/all": {
+      "get": {
+        "tags": ["Mobile Money"],
+        "summary": "Get All Mobile Money Detail",
+        "description": "Get All Mobile Money Detail",
+        "operationId": "getAllMobileMoneyDetail",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MobileMoneyDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/collectionRequest/{collectionRequestId}": {
+      "get": {
+        "tags": ["Collection Withdrawal", "Mobile Money"],
+        "summary": "Get collection request",
+        "description": "Get collection request",
+        "operationId": "getCollectionRequest",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "collectionRequestId",
+            "in": "path",
+            "description": "Collection Request UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionWithdrawalRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/collectionRequest/{collectionRequestId}/checkStatus": {
+      "get": {
+        "tags": ["Collection Withdrawal", "Mobile Money"],
+        "summary": "Check status of payment",
+        "description": "Check status of payment",
+        "operationId": "checkPaymentStatus",
+        "parameters": [
+          {
+            "name": "collectionRequestId",
+            "in": "path",
+            "description": "Collection Request UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/collectionRequest/allowed": {
+      "get": {
+        "tags": ["Collection Withdrawal"],
+        "summary": "Get Allowed Portfolios for Collection Request",
+        "description": "Get Allowed Portfolios for Collection Request",
+        "operationId": "getAllowedPortfolioForCollectionRequest",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PortfolioDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/bankDetails": {
+      "get": {
+        "tags": ["Collection Withdrawal", "Client"],
+        "summary": "Get bank accounts registered with client",
+        "description": "Get bank accounts registered with client",
+        "operationId": "getBankDetails",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankDetail"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/kyc/{kycId}/document/{docId}/delete": {
+      "delete": {
+        "tags": ["KYC"],
+        "summary": "Delete document uploaded for a KYC by ID",
+        "description": "Delete a KYC File",
+        "operationId": "deleteKycFile",
+        "parameters": [
+          {
+            "name": "kycId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/client/{clientId}/mobile-money/{mobileMoneyID}/delete": {
+      "delete": {
+        "tags": ["Mobile Money"],
+        "summary": "Remove Mobile Money Detail",
+        "description": "Remove Mobile Money Detail",
+        "operationId": "deleteMobileMoneyDetail",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "Client UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "mobileMoneyID",
+            "in": "path",
+            "description": "Mobile Money UUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "KYCFormDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kycFormSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCFormSectionDTO"
+            }
+          }
+        }
+      },
+      "KYCFormQuestionDTO": {
+        "required": ["question", "questionType"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "question": {
+            "type": "string"
+          },
+          "questionType": {
+            "type": "string",
+            "enum": [
+              "DATE",
+              "MULTI_LINE",
+              "MULTIPLE_CHOICE",
+              "SINGLE_CHOICE",
+              "PHOTO",
+              "FILE",
+              "CAMERA_PHOTO",
+              "FRONT_PHOTO",
+              "BACK_PHOTO",
+              "PHONE_NUMBER",
+              "NUMERIC",
+              "SINGLE_LINE"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibilityOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "showInGrid": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "kycValue": {
+            "type": "string"
+          },
+          "optionValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCQuestionOptionDTO"
+            }
+          }
+        }
+      },
+      "KYCFormSectionDTO": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibilityOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "repeat": {
+            "type": "boolean"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxRepetition": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kycFormSubSections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCFormSubSectionDTO"
+            }
+          }
+        }
+      },
+      "KYCFormSubSectionDTO": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibilityOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "identifier": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kycFormQuestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCFormQuestionDTO"
+            }
+          }
+        }
+      },
+      "KYCQuestionOptionDTO": {
+        "required": ["optionValue"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "optionValue": {
+            "type": "string"
+          },
+          "visibilityOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "visible": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UserKYCAnswerDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "questionIdentifier": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "sectionIdentifier": {
+            "type": "string"
+          },
+          "sectionName": {
+            "type": "string"
+          },
+          "subSectionIdentifier": {
+            "type": "string"
+          },
+          "subSectionName": {
+            "type": "string"
+          },
+          "questionType": {
+            "type": "string",
+            "enum": [
+              "DATE",
+              "MULTI_LINE",
+              "MULTIPLE_CHOICE",
+              "SINGLE_CHOICE",
+              "PHOTO",
+              "FILE",
+              "CAMERA_PHOTO",
+              "FRONT_PHOTO",
+              "BACK_PHOTO",
+              "PHONE_NUMBER",
+              "NUMERIC",
+              "SINGLE_LINE"
+            ]
+          },
+          "multipleChoiceAnswer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UserKYCDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kycStatus": {
+            "type": "string",
+            "enum": ["VERIFIED", "REJECTED", "PENDING", "SUBMITTED"]
+          },
+          "name": {
+            "type": "string"
+          },
+          "userKYCAnswerList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserKYCAnswerDTO"
+            }
+          },
+          "kycFormDTO": {
+            "$ref": "#/components/schemas/KYCFormDTO"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "rejectionReason": {
+            "type": "string"
+          },
+          "clientSubTypeUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientSubTypeName": {
+            "type": "string"
+          },
+          "currentSectionIdentifier": {
+            "type": "string"
+          },
+          "portfolioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "MobileMoneyDetailDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mobileNumber": {
+            "type": "string"
+          },
+          "mobileMoneyProvider": {
+            "type": "string",
+            "enum": ["MTN_GH", "VODAFONE_GH", "TIGO_GH"]
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "mobileMoneyName": {
+            "type": "string"
+          },
+          "verificationErrorMessage": {
+            "type": "string"
+          },
+          "otpReferenceId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "RefreshTokenRequest": {
+        "required": ["refreshToken"],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "RefreshTokenDTO": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginDTO": {
+        "required": ["password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginResponseDTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "pinEnabled": {
+            "type": "boolean"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientCode": {
+            "type": "string"
+          },
+          "hasPortfolios": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PriceRequestDTO": {
+        "type": "object",
+        "properties": {
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "orderOfferType": {
+            "type": "string",
+            "enum": ["REGULAR", "REPO", "REVERSE_REPO", "FX", "PRIMARY_AUCTION"]
+          },
+          "orderOfferId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Country": {
+        "required": ["code", "name"],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logoKey": {
+            "type": "string"
+          }
+        }
+      },
+      "Currency": {
+        "required": ["code", "name"],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "logoKey": {
+            "type": "string"
+          }
+        }
+      },
+      "PriceResponseDTO": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "securityType": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "targetCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "securityMarket": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "tendorNo": {
+            "type": "string"
+          },
+          "underlyingSecurityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "underlyingAssetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "underlyingSecurityId": {
+            "type": "string"
+          },
+          "unitPriceYieldOrReturnRate": {
+            "type": "number"
+          },
+          "orderOfferId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minOrderAmount": {
+            "type": "number"
+          },
+          "change": {
+            "type": "number"
+          },
+          "changeInValue": {
+            "type": "number"
+          },
+          "sendToBankAllowed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AppliedTransactionCostDTO": {
+        "type": "object",
+        "properties": {
+          "transactionCost": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionCostName": {
+            "type": "string"
+          },
+          "rateType": {
+            "type": "string",
+            "enum": ["FIXED", "PERCENTAGE"]
+          },
+          "rateApplicableOn": {
+            "type": "string",
+            "enum": ["QUANTITY", "CONSIDERATION"]
+          },
+          "appliedValue": {
+            "type": "number"
+          }
+        }
+      },
+      "PriceCalculationRequestDTO": {
+        "required": ["quantity"],
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "description": "Quantity"
+          },
+          "cleanPricePercentage": {
+            "type": "number",
+            "description": "For Bond Clean price percentage"
+          },
+          "discountRate": {
+            "type": "number",
+            "description": "For Bill discount rate"
+          },
+          "price": {
+            "type": "number",
+            "description": "For CIS/ETF/Equity price"
+          },
+          "yield": {
+            "type": "number",
+            "description": "For Bond and bill yield"
+          },
+          "considerationWithCurrency": {
+            "type": "number",
+            "description": "For CIS/ETF/Equity consideration"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "dirtyPricePercentage": {
+            "type": "number",
+            "description": "For Bill Dirty Price Percentage"
+          },
+          "csdFee": {
+            "type": "number"
+          },
+          "transactionCost": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppliedTransactionCostDTO"
+            }
+          },
+          "returnRate": {
+            "type": "number",
+            "description": "For Repo return rate"
+          },
+          "tenor": {
+            "type": "number"
+          },
+          "consideration": {
+            "type": "number"
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "orderOfferId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PriceCalculationResponseDTO": {
+        "type": "object",
+        "properties": {
+          "considerationWithCurrency": {
+            "type": "number",
+            "description": "Consideration"
+          },
+          "transactionFeesInCurrency": {
+            "type": "number"
+          },
+          "consideration": {
+            "type": "number"
+          },
+          "considerationWithTransactionFees": {
+            "type": "number"
+          },
+          "currencyCode": {
+            "type": "string"
+          },
+          "orderOfferId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionFees": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number",
+            "description": "For CIS/ETF/Equity price"
+          },
+          "quantity": {
+            "type": "number",
+            "description": "For CIS/ETF/Equity quantity"
+          },
+          "yield": {
+            "type": "number",
+            "description": "For Bond and bill yield"
+          },
+          "cleanPricePercentage": {
+            "type": "number",
+            "description": "For Bond clean price percentage"
+          },
+          "discountRate": {
+            "type": "number",
+            "description": "For Bill discount rate"
+          },
+          "cleanPrice": {
+            "type": "number"
+          },
+          "accruedInterest": {
+            "type": "number"
+          },
+          "indicativeConsideration": {
+            "type": "number"
+          },
+          "indicativeConsiderationWithTransactionFees": {
+            "type": "number"
+          },
+          "indicativeDirtyPricePercentage": {
+            "type": "number"
+          },
+          "dirtyPricePercentage": {
+            "type": "number"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "tenor": {
+            "type": "number"
+          },
+          "estimatedInterest": {
+            "type": "number"
+          },
+          "conversionRate": {
+            "type": "number"
+          },
+          "minOrderAmountForFx": {
+            "type": "number"
+          }
+        }
+      },
+      "ProductSearchRequest": {
+        "type": "object",
+        "properties": {
+          "assetClassList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BILL",
+                "BOND",
+                "CASH",
+                "FX",
+                "INDEX",
+                "BENCHMARK",
+                "CIS",
+                "VENTURE_CAPITAL",
+                "EQUITY",
+                "ETF",
+                "FD",
+                "REPO",
+                "STRUCTURED_TRADE",
+                "SWITCH",
+                "RECEIVABLE_LOAN",
+                "PAYABLE_LOAN",
+                "CRYPTO",
+                "COMMODITY"
+              ]
+            }
+          },
+          "searchQuery": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bondFixedIncomeAssetClasses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["CB", "GB", "LGB"]
+            }
+          },
+          "currencyCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "countryNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cisTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["FIXED_INCOME", "BALANCED", "MONEY_MARKET", "EQUITY"]
+            }
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "productStatus": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["ALL", "UPCOMING", "MATURED", "LIVE"]
+            }
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "bondBillSectorList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["MUNICIPAL", "CORPORATE", "GOVERNMENT"]
+            }
+          }
+        }
+      },
+      "PageSecurityDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SecurityDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SecurityDTO": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "coupon": {
+            "type": "number",
+            "format": "double"
+          },
+          "baseCurrency": {
+            "type": "string"
+          },
+          "targetCurrency": {
+            "type": "string"
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "tenor": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "underlyingAsset": {
+            "type": "string"
+          },
+          "underlyingAssetUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "yield": {
+            "type": "number",
+            "format": "double"
+          },
+          "country": {
+            "type": "string"
+          },
+          "market": {
+            "type": "string"
+          },
+          "fixedIncomeClass": {
+            "type": "string"
+          },
+          "issueType": {
+            "type": "string"
+          },
+          "issueAmount": {
+            "type": "number"
+          },
+          "issuerIndustry": {
+            "type": "string"
+          },
+          "announcementDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "couponType": {
+            "type": "string"
+          },
+          "annualCouponFrequency": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstCouponDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sellYield": {
+            "type": "number",
+            "format": "double"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "dayCountBasis": {
+            "type": "string",
+            "enum": [
+              "ACTUAL_360",
+              "ACTUAL_364",
+              "ACTUAL_365",
+              "ACTUAL_ACTUAL",
+              "EUROPE30_360",
+              "US_PSA30_360"
+            ]
+          },
+          "couponDateBasis": {
+            "type": "string",
+            "enum": ["DAY", "MONTH"]
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "marketIssue": {
+            "type": "string"
+          },
+          "issueYield": {
+            "type": "number"
+          },
+          "calculationType": {
+            "type": "string"
+          },
+          "pricingDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "interestAccrualDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "firstSettleDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "series": {
+            "type": "string"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "bookRunner": {
+            "type": "string"
+          },
+          "idNumber": {
+            "type": "string"
+          },
+          "figi": {
+            "type": "string"
+          },
+          "issuerShortName": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "marketCapitalCategory": {
+            "type": "string",
+            "enum": ["GIANT", "LARGE", "MID", "SMALL", "MICRO"]
+          },
+          "stockStyle": {
+            "type": "string",
+            "enum": [
+              "LARGE_CAP_GROWTH",
+              "LARGE_CAP_BLEND",
+              "LARGE_CAP_VALUE",
+              "SMALL_CAP_GROWTH",
+              "SMALL_CAP_BLEND",
+              "SMALL_CAP_VALUE",
+              "MID_CAP_GROWTH",
+              "MID_CAP_BLEND"
+            ]
+          },
+          "instrumentSector": {
+            "type": "string",
+            "enum": [
+              "ENERGY",
+              "MATERIALS",
+              "INDUSTRIALS",
+              "UTILITIES",
+              "HEALTHCARE",
+              "FINANCIALS",
+              "CONSUMER_DISCRETIONARY",
+              "CONSUMER_STAPLES",
+              "TECHNOLOGY",
+              "COMMUNICATION_SERVICES",
+              "DIVERSIFIED"
+            ]
+          },
+          "etfAssetType": {
+            "type": "string",
+            "enum": ["FIXED_INCOME", "EQUITY", "CURRENCY", "COMMODITY"]
+          },
+          "bondBillSector": {
+            "type": "string",
+            "enum": ["MUNICIPAL", "CORPORATE", "GOVERNMENT"]
+          },
+          "creditRating": {
+            "type": "string",
+            "enum": [
+              "AAA",
+              "AA_PLUS",
+              "AA",
+              "AA_MINUS",
+              "A_PLUS",
+              "A",
+              "A_MINUS",
+              "BBB_PLUS",
+              "BBB",
+              "BBB_MINUS",
+              "BB_PLUS",
+              "BB",
+              "BB_MINUS",
+              "B_PLUS",
+              "B",
+              "B_MINUS",
+              "CCC"
+            ]
+          },
+          "returnType": {
+            "type": "string",
+            "enum": ["PRICE_RETURN", "TOTAL_RETURN"]
+          },
+          "equityType": {
+            "type": "string",
+            "enum": ["ORDINARY", "PREFERENCE"]
+          },
+          "cisType": {
+            "type": "string",
+            "enum": ["FIXED_INCOME", "BALANCED", "MONEY_MARKET", "EQUITY"]
+          },
+          "bookDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tax": {
+            "type": "number"
+          },
+          "tenderSubType": {
+            "type": "string"
+          },
+          "tenderNo": {
+            "type": "string"
+          },
+          "loanAmount": {
+            "type": "number"
+          },
+          "paymentPerYear": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "interestAccrualDay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxMonths": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "installmentAmount": {
+            "type": "number"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "logoKey": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "managedBy": {
+            "type": "string"
+          },
+          "indexAssetType": {
+            "type": "string"
+          },
+          "selfManagedSecurity": {
+            "type": "boolean"
+          },
+          "minYieldForPrimaryAuctionOrderOffer": {
+            "type": "number"
+          },
+          "maxYieldForPrimaryAuctionOrderOffer": {
+            "type": "number"
+          },
+          "roundingMode": {
+            "type": "string",
+            "enum": [
+              "UP",
+              "DOWN",
+              "CEILING",
+              "FLOOR",
+              "HALF_UP",
+              "HALF_DOWN",
+              "HALF_EVEN",
+              "UNNECESSARY"
+            ]
+          },
+          "securityName": {
+            "type": "string"
+          },
+          "logoPath": {
+            "type": "string"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PerformanceChartRequest": {
+        "type": "object",
+        "properties": {
+          "portfolioIdList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "clientIdList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "securityIdList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "PerformanceChartResponse": {
+        "type": "object",
+        "properties": {
+          "clientPerformance": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProductPriceDTO"
+              }
+            }
+          },
+          "portfolioPerformance": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProductPriceDTO"
+              }
+            }
+          },
+          "benchmark": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SecurityProductPriceDTO"
+              }
+            }
+          }
+        }
+      },
+      "ProductPriceDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "unitPrice": {
+            "type": "number"
+          },
+          "last": {
+            "type": "number"
+          },
+          "cleanPricePercentage": {
+            "type": "number"
+          },
+          "dirtyPricePercentage": {
+            "type": "number"
+          },
+          "yield": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "change": {
+            "type": "number"
+          },
+          "changeInValue": {
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "SecurityProductPriceDTO": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "securityType": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "targetCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "securityMarket": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "tendorNo": {
+            "type": "string"
+          },
+          "underlyingSecurityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "underlyingAssetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "underlyingSecurityId": {
+            "type": "string"
+          },
+          "unitPrice": {
+            "type": "number"
+          },
+          "last": {
+            "type": "number"
+          },
+          "cleanPricePercentage": {
+            "type": "number"
+          },
+          "dirtyPricePercentage": {
+            "type": "number"
+          },
+          "yield": {
+            "type": "number"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "marketQuoteTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "aum": {
+            "type": "number"
+          },
+          "nav": {
+            "type": "number"
+          },
+          "change": {
+            "type": "number"
+          },
+          "changeInValue": {
+            "type": "number"
+          },
+          "changeInYield": {
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "numberOfTrades": {
+            "type": "number"
+          },
+          "volumeTraded": {
+            "type": "number"
+          },
+          "changeNumberOfTrades": {
+            "type": "number"
+          },
+          "changeNumberOfTradesInValue": {
+            "type": "number"
+          },
+          "ytdChange": {
+            "type": "number"
+          },
+          "ytdChangeInValue": {
+            "type": "number"
+          }
+        }
+      },
+      "KYCFileUploadDTO": {
+        "required": ["file", "identifier"],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "KYCUploadRequestDTO": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCFileUploadDTO"
+            }
+          }
+        }
+      },
+      "UserKYCSearchRequestDTO": {
+        "type": "object",
+        "properties": {
+          "kycStatusList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["VERIFIED", "REJECTED", "PENDING", "SUBMITTED"]
+            }
+          },
+          "kycConfigUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "searchQuery": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageUserKYCDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserKYCDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserKYCQuestionAnswerRequestDTO": {
+        "required": ["clientSubTypeId", "email"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "clientSubTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "questionAnswer": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "TransactionSearchRequest": {
+        "type": "object",
+        "properties": {
+          "assetClassList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BILL",
+                "BOND",
+                "CASH",
+                "FX",
+                "INDEX",
+                "BENCHMARK",
+                "CIS",
+                "VENTURE_CAPITAL",
+                "EQUITY",
+                "ETF",
+                "FD",
+                "REPO",
+                "STRUCTURED_TRADE",
+                "SWITCH",
+                "RECEIVABLE_LOAN",
+                "PAYABLE_LOAN",
+                "CRYPTO",
+                "COMMODITY"
+              ]
+            }
+          },
+          "searchQuery": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "corporateAction": {
+            "type": "string",
+            "enum": [
+              "COUNTER_PARTY_PAYOUT",
+              "COUPON",
+              "ENTRY_EXIT_LOAD_INCOME",
+              "MATURITY",
+              "LOAN_INTEREST_ACCRUAL",
+              "LOAN_INSTALLMENT",
+              "UNIT_ALLOCATION",
+              "SETTLE_CORPORATE_ACTION",
+              "ORDER_EXECUTION",
+              "COLLECTION_PAYMENT",
+              "WITHDRAWAL_REQUEST",
+              "TAX_ON_DIVIDEND",
+              "DIVIDEND_PAYMENT",
+              "INTERNAL_TRANSFER"
+            ]
+          },
+          "accountId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "authStatuses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["APPROVED", "PENDING_APPROVAL", "REJECTED"]
+            }
+          },
+          "executionStatuses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "AMENDED",
+                "AMENDING",
+                "ARCHIVED",
+                "COMPLETED",
+                "DELETED",
+                "DELETING",
+                "SUBMITTED",
+                "WORKING"
+              ]
+            }
+          },
+          "showSystemGeneratedTransaction": {
+            "type": "boolean"
+          },
+          "brokerTransactionsOnly": {
+            "type": "boolean"
+          },
+          "transactionTypeIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "AppliedTransactionCost": {
+        "required": ["appliedValue", "transactionCost"],
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "department": {
+            "type": "string"
+          },
+          "tenant": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionCost": {
+            "$ref": "#/components/schemas/TransactionCost"
+          },
+          "appliedValue": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          }
+        }
+      },
+      "PageTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TransactionCost": {
+        "required": [
+          "applicableAssetClasses",
+          "changeable",
+          "defaultValue",
+          "enabled",
+          "name",
+          "rateApplicableOn",
+          "rateType"
+        ],
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "department": {
+            "type": "string"
+          },
+          "tenant": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rateType": {
+            "type": "string",
+            "enum": ["FIXED", "PERCENTAGE"]
+          },
+          "rateApplicableOn": {
+            "type": "string",
+            "enum": ["QUANTITY", "CONSIDERATION"]
+          },
+          "applicableAssetClasses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BILL",
+                "BOND",
+                "CASH",
+                "FX",
+                "INDEX",
+                "BENCHMARK",
+                "CIS",
+                "VENTURE_CAPITAL",
+                "EQUITY",
+                "ETF",
+                "FD",
+                "REPO",
+                "STRUCTURED_TRADE",
+                "SWITCH",
+                "RECEIVABLE_LOAN",
+                "PAYABLE_LOAN",
+                "CRYPTO",
+                "COMMODITY"
+              ]
+            }
+          },
+          "defaultValue": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "changeable": {
+            "type": "boolean"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "costForSwitchTrade": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionStatus": {
+            "type": "string",
+            "enum": [
+              "AMENDED",
+              "AMENDING",
+              "ARCHIVED",
+              "COMPLETED",
+              "DELETED",
+              "DELETING",
+              "SUBMITTED",
+              "WORKING"
+            ]
+          },
+          "authStatus": {
+            "type": "string",
+            "enum": ["APPROVED", "PENDING_APPROVAL", "REJECTED"]
+          },
+          "portfolioUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "portfolioShortName": {
+            "type": "string"
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "executingAccountUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "executingAccount": {
+            "type": "string"
+          },
+          "custodianId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "custodian": {
+            "type": "string"
+          },
+          "counterParty": {
+            "type": "string"
+          },
+          "counterPartyUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "oldTransactionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "consideration": {
+            "type": "number"
+          },
+          "considerationWithCurrency": {
+            "type": "number"
+          },
+          "calculationBase": {
+            "type": "string",
+            "enum": ["PRICE", "YIELD"]
+          },
+          "yield": {
+            "type": "number"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bookDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adjustedYieldToMaturity": {
+            "type": "number",
+            "format": "double"
+          },
+          "noOfDaysBetweenIssueAndMaturity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "effectiveIssueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "daysToMaturity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nextInterestPaymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "accruedInterest": {
+            "type": "number"
+          },
+          "cleanPrice": {
+            "type": "number"
+          },
+          "dirtyPricePercentage": {
+            "type": "number"
+          },
+          "cleanPricePercentage": {
+            "type": "number"
+          },
+          "csdFee": {
+            "type": "number"
+          },
+          "discountRate": {
+            "type": "number"
+          },
+          "corporateAction": {
+            "type": "string",
+            "enum": [
+              "COUNTER_PARTY_PAYOUT",
+              "COUPON",
+              "ENTRY_EXIT_LOAD_INCOME",
+              "MATURITY",
+              "LOAN_INTEREST_ACCRUAL",
+              "LOAN_INSTALLMENT",
+              "UNIT_ALLOCATION",
+              "SETTLE_CORPORATE_ACTION",
+              "ORDER_EXECUTION",
+              "COLLECTION_PAYMENT",
+              "WITHDRAWAL_REQUEST",
+              "TAX_ON_DIVIDEND",
+              "DIVIDEND_PAYMENT",
+              "INTERNAL_TRANSFER"
+            ]
+          },
+          "systemGenerated": {
+            "type": "boolean"
+          },
+          "principalAmount": {
+            "type": "number"
+          },
+          "refSecurityId": {
+            "type": "string"
+          },
+          "rootTransaction": {
+            "type": "boolean"
+          },
+          "transactionTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionTypeName": {
+            "type": "string"
+          },
+          "fxRate": {
+            "type": "number"
+          },
+          "unitPayoutClientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "unitPayoutPortfolioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "unitPayoutClientName": {
+            "type": "string"
+          },
+          "unitPayoutPortfolioName": {
+            "type": "string"
+          },
+          "unitPayoutQuantity": {
+            "type": "number"
+          },
+          "unitPayoutCustodianId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "unitPayoutCustodianName": {
+            "type": "string"
+          },
+          "editUpdateDisabled": {
+            "type": "boolean"
+          },
+          "allAppliedTransactionCost": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppliedTransactionCost"
+            }
+          },
+          "entryExitLoadPercentage": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "executionErrorMessage": {
+            "type": "string"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "portfolioCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientName": {
+            "type": "string"
+          },
+          "clientCode": {
+            "type": "string"
+          },
+          "transactionCode": {
+            "type": "string"
+          },
+          "settlementInstructionStatus": {
+            "type": "string",
+            "enum": [
+              "NOT_INITIATED",
+              "INITIATED",
+              "SENT",
+              "SETTLED",
+              "FAILED",
+              "ERROR"
+            ]
+          },
+          "brokerStructuredTradeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "transactionPortfolioFxRate": {
+            "type": "number"
+          },
+          "generateSettleLedgerEntry": {
+            "type": "boolean"
+          },
+          "clientReference": {
+            "type": "string"
+          },
+          "securityName": {
+            "type": "string"
+          }
+        }
+      },
+      "ClientPositionResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "securityType": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "targetCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "securityMarket": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "tendorNo": {
+            "type": "string"
+          },
+          "underlyingSecurityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "underlyingAssetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "underlyingSecurityId": {
+            "type": "string"
+          },
+          "portfolioUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "portfolioShortName": {
+            "type": "string"
+          },
+          "counterPartyUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "counterPartyName": {
+            "type": "string"
+          },
+          "counterPartyAlias": {
+            "type": "string"
+          },
+          "custodianUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "custodianName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "marketValue": {
+            "type": "number"
+          },
+          "currentValue": {
+            "type": "number"
+          },
+          "marketValueOrCurrentValue": {
+            "type": "number"
+          },
+          "marketValueOrCurrentValueWithCurrency": {
+            "type": "number"
+          },
+          "fxProfitLoss": {
+            "type": "number"
+          },
+          "profitLoss": {
+            "type": "number"
+          },
+          "profitLossRatio": {
+            "type": "number"
+          },
+          "avgPrice": {
+            "type": "number"
+          },
+          "accruedInterest": {
+            "type": "number"
+          },
+          "purchaseYield": {
+            "type": "number"
+          },
+          "totalCost": {
+            "type": "number"
+          },
+          "totalCostWithCurrency": {
+            "type": "number"
+          },
+          "profitLossWithCurrency": {
+            "type": "number"
+          },
+          "capitalProfitLossWithCurrency": {
+            "type": "number"
+          },
+          "capitalProfitLossWithCurrencyPercentage": {
+            "type": "number"
+          },
+          "nextDividendValueWithCurrency": {
+            "type": "number"
+          },
+          "accruedInterestWithCurrency": {
+            "type": "number"
+          },
+          "marketYield": {
+            "type": "number"
+          },
+          "marketPrice": {
+            "type": "number"
+          },
+          "fxMarketQuoteLast": {
+            "type": "number"
+          },
+          "marketQuoteTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fxMarketQuoteDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "marketCleanPricePercentage": {
+            "type": "number"
+          },
+          "maturityValue": {
+            "type": "number"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "marketCouponRate": {
+            "type": "number"
+          },
+          "marketValueOrCurrentValueChangePercentage": {
+            "type": "number"
+          },
+          "difference": {
+            "$ref": "#/components/schemas/ClientPositionResponse"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientPositionResponse"
+            }
+          },
+          "capitalProfitLoss": {
+            "type": "number"
+          },
+          "eligibleForConversion": {
+            "type": "boolean"
+          },
+          "csdNo": {
+            "type": "string"
+          },
+          "securityName": {
+            "type": "string"
+          },
+          "tenor": {
+            "type": "number"
+          },
+          "accountCurrencyList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Currency"
+            }
+          }
+        }
+      },
+      "ActivityTransactionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "considerationWithCurrency": {
+            "type": "number"
+          },
+          "securityId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "activity": {
+            "type": "string"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageActivityTransactionResponseDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivityTransactionResponseDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClientOrderRequestDTO": {
+        "required": [
+          "orderSide",
+          "orderType",
+          "orderValidity",
+          "quantity",
+          "securityUUID",
+          "settlementType"
+        ],
+        "type": "object",
+        "properties": {
+          "securityUUID": {
+            "type": "string",
+            "description": "Security UUID",
+            "format": "uuid"
+          },
+          "orderSide": {
+            "type": "string",
+            "description": "Order Side",
+            "enum": ["BUY", "SELL"]
+          },
+          "orderType": {
+            "type": "string",
+            "description": "Order Type",
+            "enum": ["MARKET", "LIMIT", "STOPLOSS"]
+          },
+          "quantity": {
+            "type": "number",
+            "description": "Quantity"
+          },
+          "price": {
+            "type": "number",
+            "description": "For Bond Clean price for fx rate and for other price"
+          },
+          "yield": {
+            "type": "number",
+            "description": "For Bond and bill yield"
+          },
+          "considerationWithCurrency": {
+            "type": "number",
+            "description": "For CIS"
+          },
+          "totalConsiderationWithCurrency": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "counterPartyUUID": {
+            "type": "string",
+            "description": "Counter Party UUID",
+            "format": "uuid"
+          },
+          "settlementType": {
+            "type": "string",
+            "description": "Settlement Type",
+            "enum": ["T0", "T1", "T2", "T3"]
+          },
+          "orderValidity": {
+            "type": "string",
+            "description": "Order Validity",
+            "enum": ["GTC", "GTD"]
+          },
+          "orderOfferId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "primaryAuctionType": {
+            "type": "string",
+            "enum": ["COMPETITIVE", "NON_COMPETITIVE", "BOTH"]
+          },
+          "consideration": {
+            "type": "number"
+          },
+          "totalConsideration": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "clientReference": {
+            "type": "string"
+          },
+          "sendToBank": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "buyAllOrSellAll": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CPClientOrderResponseDTO": {
+        "required": [
+          "orderDate",
+          "orderSide",
+          "orderType",
+          "orderValidity",
+          "portfolioId",
+          "settlementType"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "securityType": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "targetCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "securityMarket": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "tendorNo": {
+            "type": "string"
+          },
+          "underlyingSecurityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "underlyingAssetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "underlyingSecurityId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientName": {
+            "type": "string"
+          },
+          "clientCode": {
+            "type": "string"
+          },
+          "clientTypeName": {
+            "type": "string"
+          },
+          "clientSubTypeName": {
+            "type": "string"
+          },
+          "portfolioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "portfolioShortName": {
+            "type": "string"
+          },
+          "portfolioCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "settlementType": {
+            "type": "string",
+            "enum": ["T0", "T1", "T2", "T3"]
+          },
+          "orderValidity": {
+            "type": "string",
+            "enum": ["GTC", "GTD"]
+          },
+          "orderType": {
+            "type": "string",
+            "enum": ["MARKET", "LIMIT", "STOPLOSS"]
+          },
+          "clientOrderStatus": {
+            "type": "string",
+            "enum": [
+              "SUBMITTED",
+              "PENDING",
+              "PARTIALLY_FILLED",
+              "EXECUTED",
+              "REJECTED",
+              "CANCELLED",
+              "FAILED",
+              "EXPIRED"
+            ]
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "executedQuantity": {
+            "type": "number"
+          },
+          "remainingQuantity": {
+            "type": "number"
+          },
+          "executedConsiderationWithCurrency": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "yield": {
+            "type": "number"
+          },
+          "cleanPricePercentage": {
+            "type": "number"
+          },
+          "considerationWithCurrency": {
+            "type": "number"
+          },
+          "executedAvgPrice": {
+            "type": "number"
+          },
+          "executedAvgYield": {
+            "type": "number"
+          },
+          "executedAvgCleanPricePercentage": {
+            "type": "number"
+          },
+          "pickedBy": {
+            "type": "string"
+          },
+          "offerActivateOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "offerExpireOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "counterPartyUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "counterPartyName": {
+            "type": "string"
+          },
+          "counterPartyAlias": {
+            "type": "string"
+          },
+          "orderDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "managedSecurity": {
+            "type": "boolean"
+          },
+          "clientReference": {
+            "type": "string"
+          },
+          "collectionRequestStatus": {
+            "type": "string",
+            "enum": ["FAILED", "PENDING", "RECEIVED"]
+          },
+          "securityName": {
+            "type": "string"
+          },
+          "companyNameOrIssuer": {
+            "type": "string"
+          },
+          "cancellable": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CPClientOrderSearchRequest": {
+        "type": "object",
+        "properties": {
+          "assetClassList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BILL",
+                "BOND",
+                "CASH",
+                "FX",
+                "INDEX",
+                "BENCHMARK",
+                "CIS",
+                "VENTURE_CAPITAL",
+                "EQUITY",
+                "ETF",
+                "FD",
+                "REPO",
+                "STRUCTURED_TRADE",
+                "SWITCH",
+                "RECEIVABLE_LOAN",
+                "PAYABLE_LOAN",
+                "CRYPTO",
+                "COMMODITY"
+              ]
+            }
+          },
+          "searchQuery": {
+            "type": "string"
+          },
+          "orderStatuses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SUBMITTED",
+                "PENDING",
+                "PARTIALLY_FILLED",
+                "EXECUTED",
+                "REJECTED",
+                "CANCELLED",
+                "FAILED",
+                "EXPIRED"
+              ]
+            }
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL"]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "orderType": {
+            "type": "string",
+            "enum": ["MARKET", "LIMIT", "STOPLOSS"]
+          },
+          "orderOfferType": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "REGULAR",
+                "REPO",
+                "REVERSE_REPO",
+                "FX",
+                "PRIMARY_AUCTION"
+              ]
+            }
+          },
+          "collectionRequestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientReference": {
+            "type": "string"
+          }
+        }
+      },
+      "HubtleCollectionRequestDto": {
+        "required": ["amount"],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "successUrl": {
+            "type": "string"
+          },
+          "failUrl": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mobileMoneyId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientReference": {
+            "type": "string"
+          }
+        }
+      },
+      "CollectionWithdrawalRequestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "portfolioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "portfolioName": {
+            "type": "string"
+          },
+          "hubtleConfigId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "charges": {
+            "type": "number"
+          },
+          "transactionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestType": {
+            "type": "string",
+            "enum": [
+              "ONLINE_CHECKOUT_COLLECTION",
+              "SDK_COLLECTION",
+              "RECEIVE_MONEY",
+              "WITHDRAWAL"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUBMITTED",
+              "INITIATED",
+              "RECEIVED",
+              "PROCESSED",
+              "REJECTED",
+              "FAILED",
+              "ERROR"
+            ]
+          },
+          "executionErrorMessage": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "custodianId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "RedirectUrlDto": {
+        "type": "object",
+        "properties": {
+          "redirectUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "CPPortfolioRequestDTO": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "shortName": {
+            "type": "string"
+          },
+          "portfolioInvestmentType": {
+            "type": "string",
+            "enum": ["AUTO_INVEST", "ACTIVE_INVEST"]
+          },
+          "csdNo": {
+            "type": "string"
+          },
+          "portfolioType": {
+            "type": "string",
+            "enum": ["PRINCIPAL", "AGENT"]
+          },
+          "custodians": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "defaultCustodian": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "CurrencyWiseBalanceDTO": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "currentValue": {
+            "type": "number"
+          },
+          "fxMarketQuoteLast": {
+            "type": "number"
+          },
+          "buyingPowerQuantity": {
+            "type": "number"
+          },
+          "buyingPowerCurrentValue": {
+            "type": "number"
+          }
+        }
+      },
+      "PortfolioDTO": {
+        "required": [
+          "bondCurrentPriceStrategy",
+          "corporateActionAccounts",
+          "counterPartyCustodianSeparator",
+          "csdFeePercentage",
+          "currency",
+          "custodians",
+          "defaultCustodian",
+          "financialYearDate",
+          "name",
+          "portfolioInvestmentType",
+          "portfolioStartDate",
+          "portfolioType",
+          "shortName",
+          "status",
+          "unitPricingStrategy",
+          "valuationStrategy"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shortName": {
+            "type": "string"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "currency": {
+            "type": "string"
+          },
+          "currencySymbol": {
+            "type": "string"
+          },
+          "csdNo": {
+            "type": "string"
+          },
+          "csdFeePercentage": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number",
+            "format": "float"
+          },
+          "corporateActionAccounts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "custodians": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "defaultCustodian": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "financialYearDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "address": {
+            "type": "string"
+          },
+          "telephone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "portfolioCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "corporateTrustee": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ARCHIVED", "BETA", "LIVE"]
+          },
+          "unitPricingStrategy": {
+            "type": "string",
+            "enum": ["BACKWARD", "FORWARD"]
+          },
+          "valuationStrategy": {
+            "type": "string",
+            "enum": ["CURRENT_VALUE", "MARKET_VALUE"]
+          },
+          "bondCurrentPriceStrategy": {
+            "type": "string",
+            "enum": ["NORMAL", "AMORTIZED"]
+          },
+          "portfolioStartDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "portfolioType": {
+            "type": "string",
+            "enum": ["PRINCIPAL", "AGENT"]
+          },
+          "initialUnits": {
+            "type": "number"
+          },
+          "initialUnitPrice": {
+            "type": "number"
+          },
+          "clientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instrumentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "benchmarkId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "clientTypeName": {
+            "type": "string"
+          },
+          "clientTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientSubTypeName": {
+            "type": "string"
+          },
+          "clientSubTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientCode": {
+            "type": "string"
+          },
+          "logoKey": {
+            "type": "string"
+          },
+          "counterPartyCustodianSeparator": {
+            "type": "string",
+            "enum": ["COUNTER_PARTY", "CUSTODIAN"]
+          },
+          "entryExitLoadPercentage": {
+            "type": "number"
+          },
+          "settlementInstructionApi": {
+            "type": "boolean"
+          },
+          "settleCorporateAction": {
+            "type": "boolean"
+          },
+          "withdrawCorporateAction": {
+            "type": "boolean"
+          },
+          "virtualAccountNo": {
+            "type": "string"
+          },
+          "mar": {
+            "type": "number"
+          },
+          "confidenceLevel": {
+            "type": "number"
+          },
+          "paymentAuthorizationCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentRequestApi": {
+            "type": "boolean"
+          },
+          "applyTaxOnInterest": {
+            "type": "boolean"
+          },
+          "dynamicStartDate": {
+            "type": "boolean"
+          },
+          "depositoryAccounts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "currencyWiseBalance": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrencyWiseBalanceDTO"
+            }
+          },
+          "allowOverdraft": {
+            "type": "boolean"
+          },
+          "portfolioInvestmentType": {
+            "type": "string",
+            "enum": ["AUTO_INVEST", "ACTIVE_INVEST"]
+          }
+        }
+      },
+      "PageCPClientOrderResponseDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CPClientOrderResponseDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrderOfferSearchRequestDTO": {
+        "type": "object",
+        "properties": {
+          "assetClassList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "BILL",
+                "BOND",
+                "CASH",
+                "FX",
+                "INDEX",
+                "BENCHMARK",
+                "CIS",
+                "VENTURE_CAPITAL",
+                "EQUITY",
+                "ETF",
+                "FD",
+                "REPO",
+                "STRUCTURED_TRADE",
+                "SWITCH",
+                "RECEIVABLE_LOAN",
+                "PAYABLE_LOAN",
+                "CRYPTO",
+                "COMMODITY"
+              ]
+            }
+          },
+          "searchQuery": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "bondFixedIncomeAssetClasses": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["CB", "GB", "LGB"]
+            }
+          },
+          "currencyCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "countryNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cisTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["FIXED_INCOME", "BALANCED", "MONEY_MARKET", "EQUITY"]
+            }
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "productStatus": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["ALL", "UPCOMING", "MATURED", "LIVE"]
+            }
+          },
+          "isArchived": {
+            "type": "boolean"
+          },
+          "bondBillSectorList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["MUNICIPAL", "CORPORATE", "GOVERNMENT"]
+            }
+          },
+          "onlyWithQuantity": {
+            "type": "boolean"
+          },
+          "orderSideOrderOfferList": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["BUY", "SELL", "BOTH"]
+            }
+          },
+          "orderOfferTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "REGULAR",
+                "REPO",
+                "REVERSE_REPO",
+                "FX",
+                "PRIMARY_AUCTION"
+              ]
+            }
+          }
+        }
+      },
+      "CPOrderOfferDTO": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "securityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isin": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "securityId": {
+            "type": "string"
+          },
+          "bsSecuritySmallId": {
+            "type": "string"
+          },
+          "bsSecurityMediumId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "fundManager": {
+            "type": "string"
+          },
+          "fundHouse": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "issuer": {
+            "type": "string"
+          },
+          "securityType": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "maturityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "securityCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "targetCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "issuePrice": {
+            "type": "number"
+          },
+          "securityMarket": {
+            "type": "string"
+          },
+          "returnRate": {
+            "type": "number"
+          },
+          "repoType": {
+            "type": "string",
+            "enum": ["REPO", "REVERSE_REPO"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "description": {
+            "type": "string"
+          },
+          "fractionalQuantityAllow": {
+            "type": "boolean"
+          },
+          "logoPath": {
+            "type": "string"
+          },
+          "tendorNo": {
+            "type": "string"
+          },
+          "underlyingSecurityUUID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "underlyingAssetClass": {
+            "type": "string",
+            "enum": [
+              "BILL",
+              "BOND",
+              "CASH",
+              "FX",
+              "INDEX",
+              "BENCHMARK",
+              "CIS",
+              "VENTURE_CAPITAL",
+              "EQUITY",
+              "ETF",
+              "FD",
+              "REPO",
+              "STRUCTURED_TRADE",
+              "SWITCH",
+              "RECEIVABLE_LOAN",
+              "PAYABLE_LOAN",
+              "CRYPTO",
+              "COMMODITY"
+            ]
+          },
+          "underlyingSecurityId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offerStartDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "offerEndDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "askYield": {
+            "type": "number"
+          },
+          "bidYield": {
+            "type": "number"
+          },
+          "askCleanPricePercentage": {
+            "type": "number",
+            "deprecated": true
+          },
+          "bidCleanPricePercentage": {
+            "type": "number",
+            "deprecated": true
+          },
+          "askPrice": {
+            "type": "number"
+          },
+          "bidPrice": {
+            "type": "number"
+          },
+          "coupon": {
+            "type": "number"
+          },
+          "calculatedAskCleanPricePercentage": {
+            "type": "number",
+            "deprecated": true
+          },
+          "calculatedBidCleanPricePercentage": {
+            "type": "number",
+            "deprecated": true
+          },
+          "ytdChange": {
+            "type": "number"
+          },
+          "ytdChangeInValue": {
+            "type": "number"
+          },
+          "aum": {
+            "type": "number"
+          },
+          "nav": {
+            "type": "number"
+          },
+          "oneMonthChange": {
+            "type": "number"
+          },
+          "oneMonthChangeInValue": {
+            "type": "number"
+          },
+          "inceptionChange": {
+            "type": "number"
+          },
+          "inceptionChangeInValue": {
+            "type": "number"
+          },
+          "twentyFourHourChange": {
+            "type": "number"
+          },
+          "twentyFourHourChangeInValue": {
+            "type": "number"
+          },
+          "twentyFourHourYieldChange": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "orderSide": {
+            "type": "string",
+            "enum": ["BUY", "SELL", "BOTH"]
+          },
+          "orderOfferType": {
+            "type": "string",
+            "enum": ["REGULAR", "REPO", "REVERSE_REPO", "FX", "PRIMARY_AUCTION"]
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "tenor": {
+            "type": "number"
+          },
+          "orderOfferStartTime": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "orderOfferEndTime": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "securityName": {
+            "type": "string"
+          },
+          "companyNameOrIssuer": {
+            "type": "string"
+          },
+          "unitPriceOrYield": {
+            "type": "number"
+          },
+          "unitPriceOrYieldChange": {
+            "type": "number"
+          },
+          "unitPriceOrYieldChangePercentage": {
+            "type": "number"
+          },
+          "minOrderAmount": {
+            "type": "number"
+          },
+          "minOrderAmountForCompetitivePrimaryAuction": {
+            "type": "number"
+          },
+          "minYield": {
+            "type": "number"
+          },
+          "maxYield": {
+            "type": "number"
+          },
+          "minDiscountRate": {
+            "type": "number"
+          },
+          "maxDiscountRate": {
+            "type": "number"
+          },
+          "prevYield": {
+            "type": "number"
+          },
+          "primaryAuctionType": {
+            "type": "string",
+            "enum": ["COMPETITIVE", "NON_COMPETITIVE", "BOTH"]
+          }
+        }
+      },
+      "LocalTime": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nano": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageCPOrderOfferDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CPOrderOfferDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ValidateOTPDTO": {
+        "required": ["otp", "referenceID"],
+        "type": "object",
+        "properties": {
+          "otp": {
+            "type": "string"
+          },
+          "referenceID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ResendOtpRequestDTO": {
+        "required": ["referenceId"],
+        "type": "object",
+        "properties": {
+          "referenceId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "MobileMoneyDetailRequestDTO": {
+        "required": ["mobileMoneyProvider", "mobileNumber"],
+        "type": "object",
+        "properties": {
+          "mobileNumber": {
+            "maxLength": 10,
+            "minLength": 9,
+            "type": "string"
+          },
+          "mobileMoneyProvider": {
+            "type": "string",
+            "enum": ["MTN_GH", "VODAFONE_GH", "TIGO_GH"]
+          }
+        }
+      },
+      "CollectionWithdrawalRequestSearch": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUBMITTED",
+              "INITIATED",
+              "RECEIVED",
+              "PROCESSED",
+              "REJECTED",
+              "FAILED",
+              "ERROR"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requestType": {
+            "type": "string",
+            "enum": [
+              "ONLINE_CHECKOUT_COLLECTION",
+              "SDK_COLLECTION",
+              "RECEIVE_MONEY",
+              "WITHDRAWAL"
+            ]
+          },
+          "custodianId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "collectionWIthdrawalRequestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientReference": {
+            "type": "string"
+          }
+        }
+      },
+      "PageCollectionWithdrawalRequestDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CollectionWithdrawalRequestDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CPClientSearchRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "clientTelephone": {
+            "type": "string"
+          },
+          "clientCode": {
+            "type": "string"
+          }
+        }
+      },
+      "BasicClientDetailDTO": {
+        "required": ["name"],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "errorRawString": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "clientTypeName": {
+            "type": "string"
+          },
+          "clientTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientSubTypeName": {
+            "type": "string"
+          },
+          "clientTelephone": {
+            "type": "string"
+          },
+          "clientSubTypeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientCode": {
+            "type": "string"
+          },
+          "csdNo": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "currencySymbol": {
+            "type": "string"
+          },
+          "benchmarkId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientEmail": {
+            "type": "string"
+          },
+          "relationshipManagerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "relationshipManagerName": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": ["MALE", "FEMALE", "OTHER"]
+          },
+          "nationality": {
+            "type": "string",
+            "enum": ["LOCAL", "FOREIGN"]
+          },
+          "ccEmailIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bccEmailIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kycId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "KYCDocumentDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kycId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "docName": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "modifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageKYCDocumentDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KYCDocumentDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PagePortfolioDTO": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortfolioDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BankDetail": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "department": {
+            "type": "string"
+          },
+          "tenant": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "bankAccountName": {
+            "type": "string"
+          },
+          "bankAccountType": {
+            "type": "string"
+          },
+          "bankAccountIdentifierType": {
+            "type": "string"
+          },
+          "bankAccountNumber": {
+            "type": "string"
+          },
+          "bankBranchCode": {
+            "type": "string"
+          },
+          "bankSwiftCode": {
+            "type": "string"
+          },
+          "bankCode": {
+            "type": "string"
+          },
+          "bankCountryCode": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

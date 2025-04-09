@@ -6,7 +6,13 @@
     "about": "About",
     "contact": "Contact",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "reports": "Reports",
+    "team": "Team",
+    "documents": "Documents",
+    "settings": "Settings"
   },
   "HomePage": {
     "title": "Welcome to the app!",
@@ -75,6 +81,518 @@
       "name": "Augustus Otu",
       "role": "Founder & Lead Developer",
       "description": "Full-stack developer with extensive experience in workforce management solutions. Having worked with remote teams and organizations, I understand the importance of reliable time tracking systems and am dedicated to creating tools that make work management easier for both employees and employers."
+    }
+  },
+  "NotFoundPage": {
+    "title": "Oops! The page you're looking for doesn't exist.",
+    "description": "It seems you've stumbled upon a page that doesn't exist. Please check the URL or navigate back to the homepage.",
+    "backHome": "Go to Home"
+  },
+  "login": {
+    "welcome": "Welcome Back",
+    "description": "Sign in to continue to your account",
+    "email": "Email Address",
+    "password": "Password",
+    "signIn": "Sign In",
+    "or": "OR",
+    "continueWithGoogle": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "team": {
+    "title": "Team Management",
+    "search": "Search team members...",
+    "addUser": "Add User",
+    "tabs": {
+      "allMembers": "All Members",
+      "clockedIn": "Clocked In Today"
+    },
+    "roles": {
+      "user": "Employee",
+      "manager": "Team Manager",
+      "admin": "Administrator",
+      "super_admin": "Super Administrator"
+    },
+    "table": {
+      "name": "Name",
+      "role": "Role",
+      "department": "Department",
+      "position": "Position",
+      "status": "Status",
+      "workDuration": "Work Duration",
+      "breakDuration": "Break Duration",
+      "joinDate": "Join Date"
+    },
+    "status": {
+      "active": "Working",
+      "onBreak": "On Break",
+      "clockedOut": "Clocked Out"
+    },
+    "createUser": {
+      "title": "Add New Team Member",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "role": "Role",
+      "department": "Department",
+      "position": "Position",
+      "employeeId": "Employee ID",
+      "timezone": "Timezone",
+      "cancel": "Cancel",
+      "create": "Create User",
+      "creating": "Creating...",
+      "success": "User created successfully",
+      "error": {
+        "generic": "An error occurred while creating the user",
+        "emailExists": "Email already exists",
+        "employeeIdExists": "Employee ID already exists",
+        "invalidEmail": "Please enter a valid email address",
+        "invalidPassword": "Password must be at least 8 characters long",
+        "requiredField": "This field is required"
+      },
+      "roles": {
+        "user": "Employee",
+        "manager": "Team Manager",
+        "admin": "Administrator",
+        "super_admin": "Super Administrator"
+      },
+      "roleDescriptions": {
+        "user": "Regular employee with basic access",
+        "manager": "Can manage team members and projects",
+        "admin": "Full administrative access",
+        "super_admin": "Complete system control and configuration"
+      },
+      "rolePermissions": {
+        "user": ["Track time", "View own reports", "Submit documents"],
+        "manager": [
+          "Manage team members",
+          "View team reports",
+          "Approve time logs",
+          "Manage projects"
+        ],
+        "admin": [
+          "Full user management",
+          "System configuration",
+          "Access all reports",
+          "Manage departments"
+        ],
+        "super_admin": [
+          "System administration",
+          "Security settings",
+          "Global configurations",
+          "User role management"
+        ]
+      },
+      "departments": {
+        "IT": "Information Technology",
+        "HR": "Human Resources",
+        "Finance": "Finance",
+        "Marketing": "Marketing",
+        "Sales": "Sales",
+        "Operations": "Operations"
+      },
+      "placeholders": {
+        "name": "Enter full name",
+        "email": "Enter email address",
+        "password": "Enter password",
+        "employeeId": "Enter employee ID",
+        "position": "Enter position",
+        "timezone": "Select timezone"
+      }
+    },
+    "filters": {
+      "role": "Filter by Role",
+      "department": "Filter by Department",
+      "status": "Filter by Status"
+    },
+    "actions": {
+      "edit": "Edit User",
+      "delete": "Delete User",
+      "viewProfile": "View Profile",
+      "resetPassword": "Reset Password"
+    },
+    "currentlyWorking": "Currently",
+    "upcomingHolidays": "Upcoming Holidays",
+    "workingHours": "Working Hours",
+    "timezone": "Timezone",
+    "noResults": "No team members found",
+    "loading": "Loading team members...",
+    "error": "Error loading team members"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "todaysTasks": "Today's Tasks",
+    "recentTimeLogs": "Recent Time Logs",
+    "duration": "Duration",
+    "noTasks": "No tasks for today",
+    "addTask": "Add Task",
+    "workHours": "Work Hours",
+    "breakHours": "Break Hours",
+    "tasks": "Tasks",
+    "noData": "No data for this day",
+    "loading": "Loading calendar data...",
+    "status": {
+      "completed": "Completed",
+      "active": "Active",
+      "break": "On Break",
+      "noData": "No Data"
+    },
+    "summary": {
+      "totalTasks": "Total Tasks",
+      "clockIn": "Clock In",
+      "clockOut": "Clock Out",
+      "duration": "Duration",
+      "break": "Break"
+    },
+    "actions": {
+      "viewDetails": "View Details",
+      "clockIn": "Clock In",
+      "clockOut": "Clock Out",
+      "startBreak": "Start Break",
+      "endBreak": "End Break"
+    },
+    "tooltips": {
+      "hasTimeLog": "Time logged for this day",
+      "noTimeLog": "No time log",
+      "completed": "Day completed",
+      "incomplete": "Day incomplete"
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "search": "Search documents...",
+    "views": {
+      "grid": "Grid View",
+      "list": "List View"
+    },
+    "categories": {
+      "companyPolicies": "Company Policies",
+      "hrDocuments": "HR Documents",
+      "projectTemplates": "Project Templates",
+      "trainingMaterials": "Training Materials"
+    },
+    "documents": "documents",
+    "lastUpdated": "Last Updated",
+    "fileSize": "File Size",
+    "upload": "Upload"
+  },
+  "reports": {
+    "title": "Reports",
+    "timeRange": {
+      "label": "Time Range",
+      "day": "Today",
+      "week": "This Week",
+      "month": "This Month",
+      "quarter": "This Quarter",
+      "year": "This Year",
+      "custom": "Custom Range",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "timeTracking": "Time Tracking",
+      "projects": "Projects"
+    },
+    "overview": {
+      "summary": "Summary",
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users",
+      "totalHours": "Total Hours",
+      "totalTasks": "Total Tasks",
+      "departmentStats": "Department Statistics",
+      "topPerformers": "Top Performers",
+      "taskDistribution": "Task Distribution",
+      "tasks": "tasks",
+      "hours": "Hours",
+      "employees": "Employees"
+    },
+    "timeTracking": {
+      "employee": "Employee",
+      "department": "Department",
+      "position": "Position",
+      "totalHours": "Total Hours",
+      "breakHours": "Break Hours",
+      "actions": {
+        "title": "Actions",
+        "exportExcel": "Export to Excel",
+        "exportPDF": "Export to PDF",
+        "exportAllExcel": "Export All (Excel)",
+        "exportAllPDF": "Export All (PDF)"
+      }
+    },
+    "errors": {
+      "fetchFailed": "Failed to fetch report data",
+      "unauthorized": "You are not authorized to view this report",
+      "invalidTimeRange": "Invalid time range selected"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": {
+      "title": "Profile",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email Notifications",
+      "emailDesc": "Receive important updates and alerts via email",
+      "push": "Push Notifications",
+      "pushDesc": "Get instant notifications on your device",
+      "weekly": "Weekly Summary",
+      "weeklyDesc": "Receive a weekly digest of your work activities"
+    },
+    "localization": {
+      "title": "Localization",
+      "language": "Language",
+      "languageDesc": "Choose your preferred display language",
+      "timezone": "Time Zone",
+      "timezoneDesc": "Set your local time zone for accurate time tracking"
+    },
+    "security": {
+      "title": "Security",
+      "twoFactor": "Two-Factor Authentication",
+      "twoFactorDesc": "Secure your account with an additional verification step",
+      "sessions": "Active Sessions",
+      "sessionsDesc": "View and manage your active login sessions",
+      "manageBtn": "Manage Sessions"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "themeDesc": "Customize your visual experience",
+      "compact": "Compact Mode",
+      "compactDesc": "Reduce spacing for a denser interface layout"
+    },
+    "sections": {
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "language": "Language",
+      "security": "Security",
+      "appearance": "Appearance"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal Information",
+    "edit": "Edit Profile",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile",
+    "name": "Full Name",
+    "email": "Email Address",
+    "position": "Position",
+    "department": "Department",
+    "employeeId": "Employee ID",
+    "phone": "Phone Number",
+    "address": "Address",
+    "timezone": "Timezone",
+    "joinDate": "Join Date",
+    "role": "Role",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "emergencyContact": "Emergency Contact",
+    "emergencyContactName": "Contact Name",
+    "emergencyContactPhone": "Contact Phone",
+    "emergencyContactRelationship": "Relationship",
+    "validation": {
+      "required": "This field is required",
+      "invalidPhone": "Please enter a valid phone number",
+      "invalidEmail": "Please enter a valid email address"
+    },
+    "sections": {
+      "account": "Account Information",
+      "personal": "Personal Details",
+      "work": "Work Information",
+      "emergency": "Emergency Contact"
+    },
+    "placeholders": {
+      "name": "Enter your full name",
+      "phone": "Enter your phone number",
+      "address": "Enter your address",
+      "emergencyContactName": "Enter emergency contact name",
+      "emergencyContactPhone": "Enter emergency contact phone",
+      "emergencyContactRelationship": "Enter relationship (e.g., Spouse, Parent)"
+    },
+    "tooltips": {
+      "email": "Email cannot be changed",
+      "employeeId": "Employee ID cannot be changed",
+      "department": "Department changes must be requested through HR",
+      "role": "Role changes must be approved by admin"
+    }
+  },
+  "auth": {
+    "welcome": "Welcome back!",
+    "description": "Sign in to your account to continue",
+    "email": "Email address",
+    "password": "Password",
+    "login": "Sign In",
+    "loggingIn": "Signing in...",
+    "forgotPassword": "Forgot your password?",
+    "registerPrompt": "Don't have an account?",
+    "registerLink": "Create one",
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "generic": "An error occurred. Please try again."
+    },
+    "loggingOut": "Signing out...",
+    "logoutSuccess": "You have been successfully signed out",
+    "logoutError": "There was an error signing out"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "clockedIn": "You're Clocked In",
+    "notClockedIn": "Not Clocked In",
+    "onBreak": "On Break",
+    "since": "Since",
+    "startBreak": "Take Break",
+    "resumeWork": "Resume",
+    "clockedInColleagues": "Who's Working",
+    "working": "Working",
+    "noOneClocked": "No one else is clocked in",
+    "timeTracking": {
+      "title": "Time Tracking",
+      "today": "Today's Hours",
+      "thisWeek": "This Week",
+      "hoursWorked": "Hours Worked",
+      "breaksTotal": "Total Break Time",
+      "clockedInAt": "Clocked in at",
+      "lastBreak": "Last break: {time}",
+      "totalBreaks": "Total breaks: {count}",
+      "todaysSummary": "Today's Summary",
+      "clockedOutAt": "Clocked out at",
+      "breaks": "Breaks",
+      "ongoing": "Ongoing",
+      "breakDuration": "{duration}m",
+      "totalWorkTime": "Total Work Time",
+      "totalBreakTime": "Total Break Time",
+      "noBreaks": "No breaks taken",
+      "breakStatus": {
+        "start": "{time}",
+        "duration": "{duration} minutes",
+        "ongoing": "Currently on break",
+        "ended": "{time} ({duration}m)"
+      }
+    },
+    "status": {
+      "active": "Working",
+      "on_break": "On Break",
+      "inactive": "Clocked Out",
+      "breakDuration": "({duration} break)"
+    },
+    "breakDuration": "Break duration: {duration}",
+    "timeAgo": "{time} ago",
+    "clockOut": {
+      "title": "Clock Out",
+      "confirmTitle": "Confirm Clock Out",
+      "confirmMessage": "You've worked more than 8 hours today. How would you like to record your time?",
+      "confirmStandardMessage": "Are you sure you want to clock out?",
+      "timeWorked": "You've worked {hours} hours and {minutes} minutes today",
+      "standardHoursNote": "Standard working hours are {hours} hours per day",
+      "useStandardHours": "Record {hours}h {minutes}m",
+      "useActualHours": "Record {hours}h {minutes}m",
+      "confirm": "Confirm Clock Out",
+      "alreadyClockedOut": "You've already clocked out today",
+      "confirmCancel": "Cancel",
+      "success": "Successfully clocked out",
+      "error": {
+        "generic": "Failed to clock out",
+        "noActiveSession": "No active time log found",
+        "alreadyOut": "You have already clocked out today",
+        "maxHoursExceeded": "Maximum daily hours exceeded"
+      }
+    },
+    "clockIn": {
+      "title": "Clock In",
+      "success": "Successfully clocked in",
+      "error": {
+        "generic": "Failed to clock in",
+        "alreadyIn": "You are already clocked in",
+        "maxHoursReached": "Maximum daily hours reached",
+        "alreadyToday": "You have already clocked in today"
+      }
+    },
+    "break": {
+      "start": "Start Break",
+      "end": "End Break",
+      "success": {
+        "started": "Break started",
+        "ended": "Break ended"
+      },
+      "error": {
+        "generic": "Failed to update break status",
+        "notClockedIn": "You must be clocked in to take a break",
+        "alreadyOnBreak": "You are already on break",
+        "notOnBreak": "You are not on break"
+      }
+    },
+    "colleagues": {
+      "title": "Team Status",
+      "working": "Currently Working",
+      "onBreak": "On Break",
+      "total": "Total Team Members",
+      "noOne": "No one is currently working",
+      "since": "Since {time}",
+      "department": "{department} Department"
+    },
+    "confirmDialog": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "tasks": {
+      "title": "Today's Tasks",
+      "descriptionPlaceholder": "What did you work on? Add details about your task...",
+      "duration": "Duration",
+      "minutes": "min",
+      "add": "Add Task",
+      "update": "Update Task",
+      "hours": "Hours",
+      "added": "Added",
+      "durationDisplay": "{minutes}m • Added {time, relativeTime}",
+      "noTasks": "Add at least one task before clocking out",
+      "error": {
+        "required": "Please add at least one task before clocking out",
+        "invalidDuration": "Duration must be greater than 0",
+        "description": "Please provide a task description"
+      },
+      "tooltips": {
+        "bold": "Bold",
+        "italic": "Italic",
+        "bulletList": "Bullet List",
+        "numberedList": "Numbered List",
+        "addLink": "Add Link",
+        "codeBlock": "Code Block",
+        "edit": "Edit Task",
+        "delete": "Delete Task"
+      },
+      "confirmDelete": {
+        "title": "Delete Task",
+        "message": "Are you sure you want to delete this task?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending"
     }
   }
 }
